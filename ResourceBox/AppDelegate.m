@@ -23,6 +23,9 @@
     
     [[RBSettingManager defaultManager] updateAppDelegate:self];
     
+    [SVProgressHUD setMinimumDismissTimeInterval:1.0f];
+    [SVProgressHUD setMaximumDismissTimeInterval:1.0f];
+    
     return YES;
 }
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {

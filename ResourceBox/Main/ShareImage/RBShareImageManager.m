@@ -57,7 +57,7 @@
         [[RBLogManager defaultManager] addDefaultLogWithFormat:@"移动后: %@", destPath];
     }
     
-    [[RBSettingManager defaultManager].viewController.view makeToast:@"已全部完成" duration:1.5 position:CSToastPositionCenter];
+    [SVProgressHUD showSuccessWithStatus:@"已全部完成"];
 }
 
 + (void)cleanImageFolder {
@@ -76,7 +76,7 @@
 + (void)_cleanImageFolder {
     [RBFileManager removeFilePath:[RBFileManager shareExtensionShareImagesAppContainerFolderPath]];
     
-    [[RBSettingManager defaultManager].viewController.view makeToast:@"已全部完成" duration:1.5 position:CSToastPositionCenter];
+    [SVProgressHUD showSuccessWithStatus:@"已全部完成"];
 }
 
 @end

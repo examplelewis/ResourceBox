@@ -2,3 +2,4 @@ ${PODS_ROOT}/Target Support Files/Pods-ResourceBox/Pods-ResourceBox-resources.sh
 ${PODS_ROOT}/DateTools/DateTools/DateTools/DateTools.bundle
 ${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle
 ${PODS_CONFIGURATION_BUILD_DIR}/MWPhotoBrowser/MWPhotoBrowser.bundle
+${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle

@@ -52,7 +52,7 @@
 }
 - (IBAction)confirmButtonDidPress:(UIButton *)sender {
     if ([self.output isEqualToString:@""]) {
-        [self.view makeToast:@"输入内容有变更，请点击结果按钮" duration:1.5f position:CSToastPositionCenter];
+        [SVProgressHUD showInfoWithStatus:@"输入内容有变更，请点击结果按钮"];
         return;
     }
     

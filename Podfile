@@ -5,17 +5,13 @@ platform :ios, '14.0'
 
 target 'ResourceBox' do
 
-pod 'AFNetworking'
 pod 'CocoaLumberjack'
 pod 'BlocksKit'
-pod 'SDWebImage'
 pod 'Masonry'
 pod 'DateTools'
-pod 'Toast'
-pod 'SSZipArchive'
+pod 'SVProgressHUD'
 pod 'FMDB'
 pod 'IQKeyboardManager'
-pod 'YYText'
 pod 'MWPhotoBrowser'
 pod 'MJRefresh'
 
@@ -23,13 +19,9 @@ end
 
 target 'RBShareExtension' do
 
-pod 'AFNetworking'
 pod 'CocoaLumberjack'
 pod 'BlocksKit'
-pod 'SDWebImage'
 pod 'Masonry'
 pod 'DateTools'
-pod 'Toast'
-pod 'YYText'
 
 end

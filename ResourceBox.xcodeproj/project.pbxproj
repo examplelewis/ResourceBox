@@ -38,7 +38,6 @@
 		AC3820C025CEA236004ECB23 /* RBFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5E9525CC32FF00D77430 /* RBFileManager.m */; };
 		AC3820C125CEA236004ECB23 /* RBLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5EB925CC32FF00D77430 /* RBLogManager.m */; };
 		AC3820C225CEA236004ECB23 /* RBUtilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5E9725CC32FF00D77430 /* RBUtilityManager.m */; };
-		AC3820C325CEA236004ECB23 /* RBHTTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5EAD25CC32FF00D77430 /* RBHTTPManager.m */; };
 		AC3820C425CEA236004ECB23 /* RBSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5EB825CC32FF00D77430 /* RBSettingManager.m */; };
 		AC3820C525CEA236004ECB23 /* RBSQLiteSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5EBB25CC32FF00D77430 /* RBSQLiteSettingManager.m */; };
 		AC38216925CEEDE8004ECB23 /* RBShareImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC38215E25CEEDE8004ECB23 /* RBShareImageManager.m */; };
@@ -49,7 +48,6 @@
 		AC6E5ED025CC32FF00D77430 /* RBFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5E9525CC32FF00D77430 /* RBFileManager.m */; };
 		AC6E5ED125CC32FF00D77430 /* RBUtilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5E9725CC32FF00D77430 /* RBUtilityManager.m */; };
 		AC6E5ED325CC32FF00D77430 /* RBExceptionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5E9E25CC32FF00D77430 /* RBExceptionManager.m */; };
-		AC6E5EDA25CC32FF00D77430 /* RBHTTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5EAD25CC32FF00D77430 /* RBHTTPManager.m */; };
 		AC6E5EDE25CC32FF00D77430 /* RBSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5EB825CC32FF00D77430 /* RBSettingManager.m */; };
 		AC6E5EDF25CC32FF00D77430 /* RBLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5EB925CC32FF00D77430 /* RBLogManager.m */; };
 		AC6E5EE025CC32FF00D77430 /* RBSQLiteSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5EBB25CC32FF00D77430 /* RBSQLiteSettingManager.m */; };
@@ -156,9 +154,6 @@
 		AC6E5E9D25CC32FF00D77430 /* RBUtilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBUtilityManager.h; sourceTree = "<group>"; };
 		AC6E5E9E25CC32FF00D77430 /* RBExceptionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBExceptionManager.m; sourceTree = "<group>"; };
 		AC6E5E9F25CC32FF00D77430 /* RBFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBFileManager.h; sourceTree = "<group>"; };
-		AC6E5EAD25CC32FF00D77430 /* RBHTTPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBHTTPManager.m; sourceTree = "<group>"; };
-		AC6E5EAE25CC32FF00D77430 /* RBHTTPHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBHTTPHeader.h; sourceTree = "<group>"; };
-		AC6E5EAF25CC32FF00D77430 /* RBHTTPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBHTTPManager.h; sourceTree = "<group>"; };
 		AC6E5EB725CC32FF00D77430 /* RBSettingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBSettingManager.h; sourceTree = "<group>"; };
 		AC6E5EB825CC32FF00D77430 /* RBSettingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBSettingManager.m; sourceTree = "<group>"; };
 		AC6E5EB925CC32FF00D77430 /* RBLogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBLogManager.m; sourceTree = "<group>"; };
@@ -366,21 +361,10 @@
 				AC6E5EB925CC32FF00D77430 /* RBLogManager.m */,
 				AC6E5E9D25CC32FF00D77430 /* RBUtilityManager.h */,
 				AC6E5E9725CC32FF00D77430 /* RBUtilityManager.m */,
-				AC6E5EAC25CC32FF00D77430 /* HTTP */,
 				AC6E5EB625CC32FF00D77430 /* Setting */,
 				AC6E5EBA25CC32FF00D77430 /* SQL */,
 			);
 			path = Managers;
-			sourceTree = "<group>";
-		};
-		AC6E5EAC25CC32FF00D77430 /* HTTP */ = {
-			isa = PBXGroup;
-			children = (
-				AC6E5EAE25CC32FF00D77430 /* RBHTTPHeader.h */,
-				AC6E5EAF25CC32FF00D77430 /* RBHTTPManager.h */,
-				AC6E5EAD25CC32FF00D77430 /* RBHTTPManager.m */,
-			);
-			path = HTTP;
 			sourceTree = "<group>";
 		};
 		AC6E5EB625CC32FF00D77430 /* Setting */ = {
@@ -862,7 +846,6 @@
 				AC6E5EDE25CC32FF00D77430 /* RBSettingManager.m in Sources */,
 				AC6E5ED125CC32FF00D77430 /* RBUtilityManager.m in Sources */,
 				AC6E5F3925CC351B00D77430 /* NSKeyedUnarchiver+YYAdd.m in Sources */,
-				AC6E5EDA25CC32FF00D77430 /* RBHTTPManager.m in Sources */,
 				AC6E5EE125CC32FF00D77430 /* NSObject+RBAdd.m in Sources */,
 				AC6E5F3D25CC351B00D77430 /* NSString+YYAdd.m in Sources */,
 				AC6E5F3825CC351B00D77430 /* NSThread+YYAdd.m in Sources */,
@@ -923,7 +906,6 @@
 				AC3820C025CEA236004ECB23 /* RBFileManager.m in Sources */,
 				AC3820C125CEA236004ECB23 /* RBLogManager.m in Sources */,
 				AC3820C225CEA236004ECB23 /* RBUtilityManager.m in Sources */,
-				AC3820C325CEA236004ECB23 /* RBHTTPManager.m in Sources */,
 				AC3820C425CEA236004ECB23 /* RBSettingManager.m in Sources */,
 				AC3820C525CEA236004ECB23 /* RBSQLiteSettingManager.m in Sources */,
 				AC38209D25CEA19B004ECB23 /* NSArray+YYAdd.m in Sources */,
