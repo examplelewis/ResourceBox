@@ -7,7 +7,6 @@
 
 #import "RBShareImageRenameViewController.h"
 
-#import "RBShareImageManager.h"
 #import "RBShareTextModel.h"
 
 @interface RBShareImageRenameViewController () <UITextViewDelegate>
