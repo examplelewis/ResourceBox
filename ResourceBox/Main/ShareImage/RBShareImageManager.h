@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RBShareImageManager : NSObject
 
-+ (void)cellDidPressAtIndex:(NSInteger)index;
++ (void)cellDidPressAtIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

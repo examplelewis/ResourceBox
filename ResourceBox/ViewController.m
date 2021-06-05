@@ -33,10 +33,12 @@
 - (void)setupUIAndData {
     // Data
     self.listData = @[
-        @[@"查询已抓取的图片数量(Group)", @"查询已抓取的图片数量(App)", @"Group 移动至 App", @"清空 文件夹"]
+        @[@"查询已抓取的图片数量(Group)", @"查询已抓取的图片数量(App)", @"Group 移动至 App", @"清空 文件夹"],
+        @[@"导入图片"]
     ];
     self.headerData = @[
-        @"图片分享"
+        @"图片分享",
+        @"图片操作"
     ];
     
     // UI
@@ -63,9 +65,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.section == 0) {
-        [RBShareImageManager cellDidPressAtIndex:indexPath.row];
-    }
+    [RBShareImageManager cellDidPressAtIndexPath:indexPath];
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return self.headerData[section];

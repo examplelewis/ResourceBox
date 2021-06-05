@@ -12,30 +12,41 @@
 
 @implementation RBShareImageManager
 
-+ (void)cellDidPressAtIndex:(NSInteger)index {
-    switch (index) {
-        case 0: {
-            RBShareImageListViewController *vc = [[RBShareImageListViewController alloc] initWithNibName:@"RBShareImageListViewController" bundle:nil];
-            vc.behavior = RBShareImageFetchResultBehaviorSourceWeibo | RBShareImageFetchResultBehaviorContainerGroup;
-            [[RBSettingManager defaultManager].navigationController pushViewController:vc animated:YES];
++ (void)cellDidPressAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        switch (indexPath.row) {
+            case 0: {
+                RBShareImageListViewController *vc = [[RBShareImageListViewController alloc] initWithNibName:@"RBShareImageListViewController" bundle:nil];
+                vc.behavior = RBShareImageFetchResultBehaviorSourceWeibo | RBShareImageFetchResultBehaviorContainerGroup;
+                [[RBSettingManager defaultManager].navigationController pushViewController:vc animated:YES];
+            }
+                break;
+            case 1: {
+                RBShareImageListViewController *vc = [[RBShareImageListViewController alloc] initWithNibName:@"RBShareImageListViewController" bundle:nil];
+                vc.behavior = RBShareImageFetchResultBehaviorSourceWeibo | RBShareImageFetchResultBehaviorContainerApp;
+                [[RBSettingManager defaultManager].navigationController pushViewController:vc animated:YES];
+            }
+                break;
+            case 2: {
+                [RBShareImageManager moveImageFilesToAppContainer];
+            }
+                break;
+            case 3: {
+                [RBShareImageManager cleanImageFolder];
+            }
+                break;
+            default:
+                break;
         }
-            break;
-        case 1: {
-            RBShareImageListViewController *vc = [[RBShareImageListViewController alloc] initWithNibName:@"RBShareImageListViewController" bundle:nil];
-            vc.behavior = RBShareImageFetchResultBehaviorSourceWeibo | RBShareImageFetchResultBehaviorContainerApp;
-            [[RBSettingManager defaultManager].navigationController pushViewController:vc animated:YES];
+    } else if (indexPath.section == 1) {
+        switch (indexPath.row) {
+            case 0: {
+                
+            }
+                break;
+            default:
+                break;
         }
-            break;
-        case 2: {
-            [RBShareImageManager moveImageFilesToAppContainer];
-        }
-            break;
-        case 3: {
-            [RBShareImageManager cleanImageFolder];
-        }
-            break;
-        default:
-            break;
     }
 }
 
@@ -63,20 +74,15 @@
 + (void)cleanImageFolder {
     UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"是否清理文件夹内所有图片" message:@"此操作不可恢复" preferredStyle:UIAlertControllerStyleAlert];
     
-    UIAlertAction *cancelAA = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}];
+    UIAlertAction *cancelAA = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *confirmAA = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [RBShareImageManager _cleanImageFolder];
+        [RBFileManager removeFilePath:[RBFileManager shareExtensionShareImagesAppContainerFolderPath]];
+        [SVProgressHUD showSuccessWithStatus:@"已全部完成"];
     }];
-    
     [ac addAction:cancelAA];
     [ac addAction:confirmAA];
     
-    [[RBSettingManager defaultManager].navigationController.visibleViewController presentViewController:ac animated:YES completion:^{}];
-}
-+ (void)_cleanImageFolder {
-    [RBFileManager removeFilePath:[RBFileManager shareExtensionShareImagesAppContainerFolderPath]];
-    
-    [SVProgressHUD showSuccessWithStatus:@"已全部完成"];
+    [[RBSettingManager defaultManager].navigationController.visibleViewController presentViewController:ac animated:YES completion:nil];
 }
 
 @end
