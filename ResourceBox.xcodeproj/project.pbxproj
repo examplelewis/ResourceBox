@@ -8,38 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		1595B8BB8DCD2762129F94A3 /* libPods-ResourceBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F57E1A2A00F57401B6EBB773 /* libPods-ResourceBox.a */; };
-		AC10126C25D5B46600DC55E7 /* RBShareTextModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3820DD25CEBC4E004ECB23 /* RBShareTextModel.m */; };
 		AC24B05E25D2E006009180B0 /* RBShareImageFilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC24B05C25D2E006009180B0 /* RBShareImageFilesViewController.m */; };
 		AC24B05F25D2E006009180B0 /* RBShareImageFilesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC24B05D25D2E006009180B0 /* RBShareImageFilesViewController.xib */; };
 		AC33359F25D40C6F0009DF4D /* RBShareImageRenameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC33359D25D40C6F0009DF4D /* RBShareImageRenameViewController.m */; };
 		AC3335A025D40C6F0009DF4D /* RBShareImageRenameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC33359E25D40C6F0009DF4D /* RBShareImageRenameViewController.xib */; };
 		AC3335A525D416C10009DF4D /* RBShareTextModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3820DD25CEBC4E004ECB23 /* RBShareTextModel.m */; };
-		AC38209325CEA191004ECB23 /* NSArray+RBAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5EC725CC32FF00D77430 /* NSArray+RBAdd.m */; };
-		AC38209425CEA191004ECB23 /* NSDictionary+RBAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5ECC25CC32FF00D77430 /* NSDictionary+RBAdd.m */; };
-		AC38209525CEA191004ECB23 /* NSError+RBAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5EC925CC32FF00D77430 /* NSError+RBAdd.m */; };
-		AC38209625CEA191004ECB23 /* NSObject+RBAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5EC425CC32FF00D77430 /* NSObject+RBAdd.m */; };
-		AC38209725CEA191004ECB23 /* NSString+RBAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5ECB25CC32FF00D77430 /* NSString+RBAdd.m */; };
-		AC38209825CEA191004ECB23 /* UIColor+RBAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5EEC25CC334600D77430 /* UIColor+RBAdd.m */; };
-		AC38209D25CEA19B004ECB23 /* NSArray+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5F1025CC351B00D77430 /* NSArray+YYAdd.m */; };
-		AC38209E25CEA19B004ECB23 /* NSBundle+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5F1625CC351B00D77430 /* NSBundle+YYAdd.m */; };
-		AC38209F25CEA19B004ECB23 /* NSData+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5F1A25CC351B00D77430 /* NSData+YYAdd.m */; };
-		AC3820A025CEA19B004ECB23 /* NSDate+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5F2225CC351B00D77430 /* NSDate+YYAdd.m */; };
-		AC3820A125CEA19B004ECB23 /* NSDictionary+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5F2825CC351B00D77430 /* NSDictionary+YYAdd.m */; };
-		AC3820A225CEA19B004ECB23 /* NSKeyedUnarchiver+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5F1D25CC351B00D77430 /* NSKeyedUnarchiver+YYAdd.m */; };
-		AC3820A325CEA19B004ECB23 /* NSNotificationCenter+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5F2625CC351B00D77430 /* NSNotificationCenter+YYAdd.m */; };
-		AC3820A425CEA19B004ECB23 /* NSNumber+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5F1125CC351B00D77430 /* NSNumber+YYAdd.m */; };
-		AC3820A525CEA19B004ECB23 /* NSObject+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5F1725CC351B00D77430 /* NSObject+YYAdd.m */; };
-		AC3820A625CEA19B004ECB23 /* NSObject+YYAddForARC.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5F2125CC351B00D77430 /* NSObject+YYAddForARC.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		AC3820A725CEA19B004ECB23 /* NSObject+YYAddForKVO.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5F2B25CC351B00D77430 /* NSObject+YYAddForKVO.m */; };
-		AC3820A825CEA19B004ECB23 /* NSString+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5F2425CC351B00D77430 /* NSString+YYAdd.m */; };
-		AC3820A925CEA19B004ECB23 /* NSThread+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5F1B25CC351B00D77430 /* NSThread+YYAdd.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		AC3820AA25CEA19B004ECB23 /* NSTimer+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5F1E25CC351B00D77430 /* NSTimer+YYAdd.m */; };
-		AC3820BF25CEA236004ECB23 /* RBExceptionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5E9E25CC32FF00D77430 /* RBExceptionManager.m */; };
-		AC3820C025CEA236004ECB23 /* RBFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5E9525CC32FF00D77430 /* RBFileManager.m */; };
-		AC3820C125CEA236004ECB23 /* RBLogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5EB925CC32FF00D77430 /* RBLogManager.m */; };
-		AC3820C225CEA236004ECB23 /* RBUtilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5E9725CC32FF00D77430 /* RBUtilityManager.m */; };
-		AC3820C425CEA236004ECB23 /* RBSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5EB825CC32FF00D77430 /* RBSettingManager.m */; };
-		AC3820C525CEA236004ECB23 /* RBSQLiteSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5EBB25CC32FF00D77430 /* RBSQLiteSettingManager.m */; };
 		AC38216A25CEEDE8004ECB23 /* RBShareImageListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC38216125CEEDE8004ECB23 /* RBShareImageListTableViewCell.m */; };
 		AC38216B25CEEDE8004ECB23 /* RBShareImageListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC38216225CEEDE8004ECB23 /* RBShareImageListTableViewCell.xib */; };
 		AC38216C25CEEDE8004ECB23 /* RBShareImageListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC38216625CEEDE8004ECB23 /* RBShareImageListViewController.xib */; };
@@ -71,8 +44,6 @@
 		AC6E5F3F25CC351B00D77430 /* NSDictionary+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5F2825CC351B00D77430 /* NSDictionary+YYAdd.m */; };
 		AC6E5F4025CC351B00D77430 /* NSObject+YYAddForKVO.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5F2B25CC351B00D77430 /* NSObject+YYAddForKVO.m */; };
 		AC6E5F4125CC351B00D77430 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5F2F25CC351B00D77430 /* XMLReader.m */; };
-		AC6E5F9125CC4CF800D77430 /* RBShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5F8F25CC4CF800D77430 /* RBShareViewController.m */; };
-		AC6E5F9225CC4CF800D77430 /* RBShareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC6E5F9025CC4CF800D77430 /* RBShareViewController.xib */; };
 		AC89B05F25C9A48500BA2AA4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AC89B05E25C9A48500BA2AA4 /* AppDelegate.m */; };
 		AC89B06225C9A48500BA2AA4 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AC89B06125C9A48500BA2AA4 /* SceneDelegate.m */; };
 		AC89B06525C9A48500BA2AA4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC89B06425C9A48500BA2AA4 /* ViewController.m */; };
@@ -82,8 +53,6 @@
 		AC89B07025C9A48700BA2AA4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AC89B06F25C9A48700BA2AA4 /* main.m */; };
 		AC89B07A25C9A48800BA2AA4 /* ResourceBoxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AC89B07925C9A48800BA2AA4 /* ResourceBoxTests.m */; };
 		AC89B08525C9A48800BA2AA4 /* ResourceBoxUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = AC89B08425C9A48800BA2AA4 /* ResourceBoxUITests.m */; };
-		ACD0A23D25CAF55400DB9DA5 /* RBShareExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = ACD0A23225CAF55400DB9DA5 /* RBShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		E7136A26835BDFADF2D96D83 /* libPods-RBShareExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 69D0BC616DD363473A74398A /* libPods-RBShareExtension.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,13 +70,6 @@
 			remoteGlobalIDString = AC89B05925C9A48500BA2AA4;
 			remoteInfo = ResourceBox;
 		};
-		ACD0A23B25CAF55400DB9DA5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AC89B05225C9A48500BA2AA4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = ACD0A23125CAF55400DB9DA5;
-			remoteInfo = RBShareExtension;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -117,7 +79,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				ACD0A23D25CAF55400DB9DA5 /* RBShareExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -135,7 +96,6 @@
 		AC33359C25D40C6F0009DF4D /* RBShareImageRenameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBShareImageRenameViewController.h; sourceTree = "<group>"; };
 		AC33359D25D40C6F0009DF4D /* RBShareImageRenameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBShareImageRenameViewController.m; sourceTree = "<group>"; };
 		AC33359E25D40C6F0009DF4D /* RBShareImageRenameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RBShareImageRenameViewController.xib; sourceTree = "<group>"; };
-		AC38209225CEA163004ECB23 /* RBShareExtension-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RBShareExtension-Prefix.pch"; sourceTree = "<group>"; };
 		AC3820DC25CEBC4E004ECB23 /* RBShareTextModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBShareTextModel.h; sourceTree = "<group>"; };
 		AC3820DD25CEBC4E004ECB23 /* RBShareTextModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBShareTextModel.m; sourceTree = "<group>"; };
 		AC38216125CEEDE8004ECB23 /* RBShareImageListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBShareImageListTableViewCell.m; sourceTree = "<group>"; };
@@ -209,10 +169,6 @@
 		AC6E5F3125CC351B00D77430 /* RACEXTScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RACEXTScope.h; sourceTree = "<group>"; };
 		AC6E5F3225CC351B00D77430 /* RACMetaMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RACMetaMacros.h; sourceTree = "<group>"; };
 		AC6E5F8425CC49B600D77430 /* ResourceBox.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ResourceBox.entitlements; sourceTree = "<group>"; };
-		AC6E5F8925CC4A1400D77430 /* RBShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RBShareExtension.entitlements; sourceTree = "<group>"; };
-		AC6E5F8E25CC4CF800D77430 /* RBShareViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBShareViewController.h; sourceTree = "<group>"; };
-		AC6E5F8F25CC4CF800D77430 /* RBShareViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBShareViewController.m; sourceTree = "<group>"; };
-		AC6E5F9025CC4CF800D77430 /* RBShareViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RBShareViewController.xib; sourceTree = "<group>"; };
 		AC89B05A25C9A48500BA2AA4 /* ResourceBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ResourceBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC89B05D25C9A48500BA2AA4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AC89B05E25C9A48500BA2AA4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -231,8 +187,6 @@
 		AC89B08025C9A48800BA2AA4 /* ResourceBoxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ResourceBoxUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC89B08425C9A48800BA2AA4 /* ResourceBoxUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResourceBoxUITests.m; sourceTree = "<group>"; };
 		AC89B08625C9A48800BA2AA4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		ACD0A23225CAF55400DB9DA5 /* RBShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RBShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		ACD0A23A25CAF55400DB9DA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E8C7A9CDDB30630088DE335A /* Pods-RBShareExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RBShareExtension.release.xcconfig"; path = "Target Support Files/Pods-RBShareExtension/Pods-RBShareExtension.release.xcconfig"; sourceTree = "<group>"; };
 		F57E1A2A00F57401B6EBB773 /* libPods-ResourceBox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ResourceBox.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -257,14 +211,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		ACD0A22F25CAF55400DB9DA5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E7136A26835BDFADF2D96D83 /* libPods-RBShareExtension.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,7 +456,6 @@
 				AC89B05C25C9A48500BA2AA4 /* ResourceBox */,
 				AC89B07825C9A48800BA2AA4 /* ResourceBoxTests */,
 				AC89B08325C9A48800BA2AA4 /* ResourceBoxUITests */,
-				ACD0A23325CAF55400DB9DA5 /* RBShareExtension */,
 				AC89B05B25C9A48500BA2AA4 /* Products */,
 				7D8AF9783E912FB2F78D0578 /* Pods */,
 				E4F2E8ED76676B8BD5D38ACB /* Frameworks */,
@@ -523,7 +468,6 @@
 				AC89B05A25C9A48500BA2AA4 /* ResourceBox.app */,
 				AC89B07525C9A48800BA2AA4 /* ResourceBoxTests.xctest */,
 				AC89B08025C9A48800BA2AA4 /* ResourceBoxUITests.xctest */,
-				ACD0A23225CAF55400DB9DA5 /* RBShareExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -565,19 +509,6 @@
 			path = ResourceBoxUITests;
 			sourceTree = "<group>";
 		};
-		ACD0A23325CAF55400DB9DA5 /* RBShareExtension */ = {
-			isa = PBXGroup;
-			children = (
-				AC6E5F8E25CC4CF800D77430 /* RBShareViewController.h */,
-				AC6E5F8F25CC4CF800D77430 /* RBShareViewController.m */,
-				AC6E5F9025CC4CF800D77430 /* RBShareViewController.xib */,
-				ACD0A23A25CAF55400DB9DA5 /* Info.plist */,
-				AC6E5F8925CC4A1400D77430 /* RBShareExtension.entitlements */,
-				AC38209225CEA163004ECB23 /* RBShareExtension-Prefix.pch */,
-			);
-			path = RBShareExtension;
-			sourceTree = "<group>";
-		};
 		E4F2E8ED76676B8BD5D38ACB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -604,7 +535,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				ACD0A23C25CAF55400DB9DA5 /* PBXTargetDependency */,
 			);
 			name = ResourceBox;
 			productName = ResourceBox;
@@ -647,25 +577,6 @@
 			productReference = AC89B08025C9A48800BA2AA4 /* ResourceBoxUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		ACD0A23125CAF55400DB9DA5 /* RBShareExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = ACD0A23E25CAF55400DB9DA5 /* Build configuration list for PBXNativeTarget "RBShareExtension" */;
-			buildPhases = (
-				F6541291E1A81AAA3F1D9D30 /* [CP] Check Pods Manifest.lock */,
-				ACD0A22E25CAF55400DB9DA5 /* Sources */,
-				ACD0A22F25CAF55400DB9DA5 /* Frameworks */,
-				ACD0A23025CAF55400DB9DA5 /* Resources */,
-				2C0DD8C9D8C814AD70E17B20 /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = RBShareExtension;
-			productName = RBShareExtension;
-			productReference = ACD0A23225CAF55400DB9DA5 /* RBShareExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -685,9 +596,6 @@
 						CreatedOnToolsVersion = 12.3;
 						TestTargetID = AC89B05925C9A48500BA2AA4;
 					};
-					ACD0A23125CAF55400DB9DA5 = {
-						CreatedOnToolsVersion = 12.4;
-					};
 				};
 			};
 			buildConfigurationList = AC89B05525C9A48500BA2AA4 /* Build configuration list for PBXProject "ResourceBox" */;
@@ -706,7 +614,6 @@
 				AC89B05925C9A48500BA2AA4 /* ResourceBox */,
 				AC89B07425C9A48800BA2AA4 /* ResourceBoxTests */,
 				AC89B07F25C9A48800BA2AA4 /* ResourceBoxUITests */,
-				ACD0A23125CAF55400DB9DA5 /* RBShareExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -740,14 +647,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		ACD0A23025CAF55400DB9DA5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AC6E5F9225CC4CF800D77430 /* RBShareViewController.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -766,45 +665,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ResourceBox/Pods-ResourceBox-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2C0DD8C9D8C814AD70E17B20 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RBShareExtension/Pods-RBShareExtension-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RBShareExtension/Pods-RBShareExtension-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RBShareExtension/Pods-RBShareExtension-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F6541291E1A81AAA3F1D9D30 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RBShareExtension-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FF9C818E604E43DD81DA9289 /* [CP] Check Pods Manifest.lock */ = {
@@ -891,41 +751,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		ACD0A22E25CAF55400DB9DA5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AC10126C25D5B46600DC55E7 /* RBShareTextModel.m in Sources */,
-				AC3820BF25CEA236004ECB23 /* RBExceptionManager.m in Sources */,
-				AC3820C025CEA236004ECB23 /* RBFileManager.m in Sources */,
-				AC3820C125CEA236004ECB23 /* RBLogManager.m in Sources */,
-				AC3820C225CEA236004ECB23 /* RBUtilityManager.m in Sources */,
-				AC3820C425CEA236004ECB23 /* RBSettingManager.m in Sources */,
-				AC3820C525CEA236004ECB23 /* RBSQLiteSettingManager.m in Sources */,
-				AC38209D25CEA19B004ECB23 /* NSArray+YYAdd.m in Sources */,
-				AC38209E25CEA19B004ECB23 /* NSBundle+YYAdd.m in Sources */,
-				AC38209F25CEA19B004ECB23 /* NSData+YYAdd.m in Sources */,
-				AC3820A025CEA19B004ECB23 /* NSDate+YYAdd.m in Sources */,
-				AC3820A125CEA19B004ECB23 /* NSDictionary+YYAdd.m in Sources */,
-				AC3820A225CEA19B004ECB23 /* NSKeyedUnarchiver+YYAdd.m in Sources */,
-				AC3820A325CEA19B004ECB23 /* NSNotificationCenter+YYAdd.m in Sources */,
-				AC3820A425CEA19B004ECB23 /* NSNumber+YYAdd.m in Sources */,
-				AC3820A525CEA19B004ECB23 /* NSObject+YYAdd.m in Sources */,
-				AC3820A625CEA19B004ECB23 /* NSObject+YYAddForARC.m in Sources */,
-				AC3820A725CEA19B004ECB23 /* NSObject+YYAddForKVO.m in Sources */,
-				AC3820A825CEA19B004ECB23 /* NSString+YYAdd.m in Sources */,
-				AC3820A925CEA19B004ECB23 /* NSThread+YYAdd.m in Sources */,
-				AC3820AA25CEA19B004ECB23 /* NSTimer+YYAdd.m in Sources */,
-				AC38209325CEA191004ECB23 /* NSArray+RBAdd.m in Sources */,
-				AC38209425CEA191004ECB23 /* NSDictionary+RBAdd.m in Sources */,
-				AC38209525CEA191004ECB23 /* NSError+RBAdd.m in Sources */,
-				AC38209625CEA191004ECB23 /* NSObject+RBAdd.m in Sources */,
-				AC38209725CEA191004ECB23 /* NSString+RBAdd.m in Sources */,
-				AC38209825CEA191004ECB23 /* UIColor+RBAdd.m in Sources */,
-				AC6E5F9125CC4CF800D77430 /* RBShareViewController.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -938,11 +763,6 @@
 			isa = PBXTargetDependency;
 			target = AC89B05925C9A48500BA2AA4 /* ResourceBox */;
 			targetProxy = AC89B08125C9A48800BA2AA4 /* PBXContainerItemProxy */;
-		};
-		ACD0A23C25CAF55400DB9DA5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = ACD0A23125CAF55400DB9DA5 /* RBShareExtension */;
-			targetProxy = ACD0A23B25CAF55400DB9DA5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1200,54 +1020,6 @@
 			};
 			name = Release;
 		};
-		ACD0A23F25CAF55400DB9DA5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 58913FA3D7E31C8C4431D386 /* Pods-RBShareExtension.debug.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_ENTITLEMENTS = RBShareExtension/RBShareExtension.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2G352K7NR7;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/RBShareExtension/RBShareExtension-Prefix.pch";
-				INFOPLIST_FILE = RBShareExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gongyuTest.ResourceBox.RBShareExtension;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Debug;
-		};
-		ACD0A24025CAF55400DB9DA5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E8C7A9CDDB30630088DE335A /* Pods-RBShareExtension.release.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_ENTITLEMENTS = RBShareExtension/RBShareExtension.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2G352K7NR7;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/RBShareExtension/RBShareExtension-Prefix.pch";
-				INFOPLIST_FILE = RBShareExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gongyuTest.ResourceBox.RBShareExtension;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1283,15 +1055,6 @@
 			buildConfigurations = (
 				AC89B09025C9A48800BA2AA4 /* Debug */,
 				AC89B09125C9A48800BA2AA4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		ACD0A23E25CAF55400DB9DA5 /* Build configuration list for PBXNativeTarget "RBShareExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				ACD0A23F25CAF55400DB9DA5 /* Debug */,
-				ACD0A24025CAF55400DB9DA5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

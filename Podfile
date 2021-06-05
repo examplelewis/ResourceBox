@@ -16,12 +16,3 @@ pod 'MWPhotoBrowser'
 pod 'MJRefresh'
 
 end
-
-target 'RBShareExtension' do
-
-pod 'CocoaLumberjack'
-pod 'BlocksKit'
-pod 'Masonry'
-pod 'DateTools'
-
-end
