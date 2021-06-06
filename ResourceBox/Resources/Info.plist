@@ -84,5 +84,9 @@
 	<true/>
 	<key>UISupportsDocumentBrowser</key>
 	<true/>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>选择图片以导入</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>选择图片以导入</string>
 </dict>
 </plist>

@@ -17,6 +17,11 @@
 		AC38216B25CEEDE8004ECB23 /* RBShareImageListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC38216225CEEDE8004ECB23 /* RBShareImageListTableViewCell.xib */; };
 		AC38216C25CEEDE8004ECB23 /* RBShareImageListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC38216625CEEDE8004ECB23 /* RBShareImageListViewController.xib */; };
 		AC38216D25CEEDE8004ECB23 /* RBShareImageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC38216725CEEDE8004ECB23 /* RBShareImageListViewController.m */; };
+		AC54F281266C826600F67400 /* RBShareImageImportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC54F27F266C826600F67400 /* RBShareImageImportViewController.m */; };
+		AC54F282266C826600F67400 /* RBShareImageImportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC54F280266C826600F67400 /* RBShareImageImportViewController.xib */; };
+		AC54F295266C998700F67400 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC54F294266C998700F67400 /* PhotosUI.framework */; };
+		AC54F29C266CA70300F67400 /* RBShareImageImportStatusTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC54F29A266CA70200F67400 /* RBShareImageImportStatusTableViewCell.m */; };
+		AC54F29D266CA70300F67400 /* RBShareImageImportStatusTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC54F29B266CA70200F67400 /* RBShareImageImportStatusTableViewCell.xib */; };
 		AC6E5ED025CC32FF00D77430 /* RBFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5E9525CC32FF00D77430 /* RBFileManager.m */; };
 		AC6E5ED125CC32FF00D77430 /* RBUtilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5E9725CC32FF00D77430 /* RBUtilityManager.m */; };
 		AC6E5ED325CC32FF00D77430 /* RBExceptionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5E9E25CC32FF00D77430 /* RBExceptionManager.m */; };
@@ -104,6 +109,13 @@
 		AC38216525CEEDE8004ECB23 /* RBShareImageListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBShareImageListTableViewCell.h; sourceTree = "<group>"; };
 		AC38216625CEEDE8004ECB23 /* RBShareImageListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RBShareImageListViewController.xib; sourceTree = "<group>"; };
 		AC38216725CEEDE8004ECB23 /* RBShareImageListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBShareImageListViewController.m; sourceTree = "<group>"; };
+		AC54F27E266C826600F67400 /* RBShareImageImportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBShareImageImportViewController.h; sourceTree = "<group>"; };
+		AC54F27F266C826600F67400 /* RBShareImageImportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBShareImageImportViewController.m; sourceTree = "<group>"; };
+		AC54F280266C826600F67400 /* RBShareImageImportViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RBShareImageImportViewController.xib; sourceTree = "<group>"; };
+		AC54F294266C998700F67400 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
+		AC54F299266CA70200F67400 /* RBShareImageImportStatusTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBShareImageImportStatusTableViewCell.h; sourceTree = "<group>"; };
+		AC54F29A266CA70200F67400 /* RBShareImageImportStatusTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBShareImageImportStatusTableViewCell.m; sourceTree = "<group>"; };
+		AC54F29B266CA70200F67400 /* RBShareImageImportStatusTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RBShareImageImportStatusTableViewCell.xib; sourceTree = "<group>"; };
 		AC6E5E9525CC32FF00D77430 /* RBFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBFileManager.m; sourceTree = "<group>"; };
 		AC6E5E9625CC32FF00D77430 /* RBExceptionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBExceptionManager.h; sourceTree = "<group>"; };
 		AC6E5E9725CC32FF00D77430 /* RBUtilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBUtilityManager.m; sourceTree = "<group>"; };
@@ -196,6 +208,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC54F295266C998700F67400 /* PhotosUI.framework in Frameworks */,
 				1595B8BB8DCD2762129F94A3 /* libPods-ResourceBox.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -243,6 +256,9 @@
 				AC38216525CEEDE8004ECB23 /* RBShareImageListTableViewCell.h */,
 				AC38216125CEEDE8004ECB23 /* RBShareImageListTableViewCell.m */,
 				AC38216225CEEDE8004ECB23 /* RBShareImageListTableViewCell.xib */,
+				AC54F299266CA70200F67400 /* RBShareImageImportStatusTableViewCell.h */,
+				AC54F29A266CA70200F67400 /* RBShareImageImportStatusTableViewCell.m */,
+				AC54F29B266CA70200F67400 /* RBShareImageImportStatusTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -269,6 +285,9 @@
 				AC33359C25D40C6F0009DF4D /* RBShareImageRenameViewController.h */,
 				AC33359D25D40C6F0009DF4D /* RBShareImageRenameViewController.m */,
 				AC33359E25D40C6F0009DF4D /* RBShareImageRenameViewController.xib */,
+				AC54F27E266C826600F67400 /* RBShareImageImportViewController.h */,
+				AC54F27F266C826600F67400 /* RBShareImageImportViewController.m */,
+				AC54F280266C826600F67400 /* RBShareImageImportViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -512,6 +531,7 @@
 		E4F2E8ED76676B8BD5D38ACB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AC54F294266C998700F67400 /* PhotosUI.framework */,
 				F57E1A2A00F57401B6EBB773 /* libPods-ResourceBox.a */,
 				69D0BC616DD363473A74398A /* libPods-RBShareExtension.a */,
 			);
@@ -623,7 +643,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC54F29D266CA70300F67400 /* RBShareImageImportStatusTableViewCell.xib in Resources */,
 				AC89B06D25C9A48700BA2AA4 /* LaunchScreen.storyboard in Resources */,
+				AC54F282266C826600F67400 /* RBShareImageImportViewController.xib in Resources */,
 				AC38216C25CEEDE8004ECB23 /* RBShareImageListViewController.xib in Resources */,
 				AC89B06A25C9A48700BA2AA4 /* Assets.xcassets in Resources */,
 				AC89B06825C9A48500BA2AA4 /* Main.storyboard in Resources */,
@@ -709,11 +731,13 @@
 				AC6E5F3E25CC351B00D77430 /* NSNotificationCenter+YYAdd.m in Sources */,
 				AC89B06525C9A48500BA2AA4 /* ViewController.m in Sources */,
 				AC6E5EE225CC32FF00D77430 /* NSArray+RBAdd.m in Sources */,
+				AC54F29C266CA70300F67400 /* RBShareImageImportStatusTableViewCell.m in Sources */,
 				AC6E5F3A25CC351B00D77430 /* NSTimer+YYAdd.m in Sources */,
 				AC6E5EE425CC32FF00D77430 /* NSString+RBAdd.m in Sources */,
 				AC6E5F3725CC351B00D77430 /* NSData+YYAdd.m in Sources */,
 				AC89B05F25C9A48500BA2AA4 /* AppDelegate.m in Sources */,
 				AC6E5EE025CC32FF00D77430 /* RBSQLiteSettingManager.m in Sources */,
+				AC54F281266C826600F67400 /* RBShareImageImportViewController.m in Sources */,
 				AC89B07025C9A48700BA2AA4 /* main.m in Sources */,
 				AC38216D25CEEDE8004ECB23 /* RBShareImageListViewController.m in Sources */,
 				AC6E5EED25CC334600D77430 /* UIColor+RBAdd.m in Sources */,

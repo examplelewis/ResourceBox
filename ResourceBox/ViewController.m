@@ -8,6 +8,7 @@
 #import "ViewController.h"
 
 #import "RBShareImageListViewController.h"
+#import "RBShareImageImportViewController.h"
 #import "RBShareTextModel.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -108,7 +109,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.section == 0) {
+        RBShareImageImportViewController *vc = [[RBShareImageImportViewController alloc] initWithNibName:@"RBShareImageImportViewController" bundle:nil];
+        vc.link = @"https://www.baidu.com/";
         
+        [[RBSettingManager defaultManager].navigationController pushViewController:vc animated:YES];
     } else if (indexPath.section == 1) {
         RBShareImageListViewController *vc = [[RBShareImageListViewController alloc] initWithNibName:@"RBShareImageListViewController" bundle:nil];
         if (indexPath.row == 0) {
