@@ -175,23 +175,12 @@
         for (NSInteger i = 0; i < results.count; i++) {
             @weakify(self);
             PHPickerResult *result = results[i];
-            if ([result.itemProvider hasItemConformingToTypeIdentifier:@"public.image"]) {
-                // 尽量遵循原图片尺寸、格式
-                [result.itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypeImage options:nil completionHandler:^(NSData *data, NSError *error) {
-                    if (data) {
-                        @strongify(self);
-                        [self processImageData:data atIndex:i];
-                    } else if (error.code == -1200) {
-                        // -1200 的错误出现意味着，转换成Data失败，需要直接显示成Image
-                        [result.itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypeImage options:nil completionHandler:^(UIImage *image, NSError *error) {
-                            if (image) {
-                                @strongify(self);
-                                [self processImageData:UIImageJPEGRepresentation(image, 0.95f) atIndex:i];
-                            }
-                        }];
-                    }
-                }];
-            }
+            [result.itemProvider loadObjectOfClass:[UIImage class] completionHandler:^(__kindof id<NSItemProviderReading>  _Nullable object, NSError * _Nullable error) {
+                if ([object isKindOfClass:[UIImage class]]) {
+                    @strongify(self);
+                    [self processImageData:UIImageJPEGRepresentation((UIImage *)object, 0.95f) atIndex:i];
+                }
+            }];
         }
     } else {
         
@@ -249,7 +238,7 @@
         return;
     }
     
-    NSString *rootFolderPath = [[RBSettingManager defaultManager] pathOfContentInDocumentFolder:@"ShareImage"];
+    NSString *rootFolderPath = [[RBSettingManager defaultManager] pathOfContentInDocumentFolder:@"ShareImages"];
     NSString *folderPath = [rootFolderPath stringByAppendingPathComponent:self.folderName];
     
     [RBFileManager createFolderAtPath:folderPath];
