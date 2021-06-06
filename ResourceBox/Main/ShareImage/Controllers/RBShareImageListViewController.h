@@ -9,16 +9,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef NS_OPTIONS(NSUInteger, RBShareImageFetchResultBehavior) {
-    RBShareImageFetchResultBehaviorNone                 = 0,
-    RBShareImageFetchResultBehaviorContainerApp         = 1 << 0,
-    RBShareImageFetchResultBehaviorContainerGroup       = 1 << 1,
-    RBShareImageFetchResultBehaviorSourceWeibo          = 1 << 2,
+typedef NS_ENUM(NSUInteger, RBShareImageSource) {
+    RBShareImageSourceNone      = 0,
+    RBShareImageSourceWeibo     = 1 << 0,
 };
 
 @interface RBShareImageListViewController : UIViewController
 
-@property (nonatomic, assign) RBShareImageFetchResultBehavior behavior;
+//@property (nonatomic, assign) RBShareImageSource source;
 
 @end
 

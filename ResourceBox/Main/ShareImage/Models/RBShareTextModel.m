@@ -61,10 +61,6 @@
 }
 
 + (NSString *)folderNameWithText:(NSString *)text {
-    if (!text.isNotEmpty) {
-        return [RBFileManager shareExtensionOrderedFolderName];
-    }
-    
     RBShareTextModel *model = [[RBShareTextModel alloc] initWithText:text];
     
     // 1、先添加用户昵称

@@ -9,11 +9,10 @@
 
 #import "RBShareImageListTableViewCell.h"
 #import "RBShareImageFilesViewController.h"
-#import "RBShareImageRenameViewController.h"
 
 #import <MJRefresh.h>
 
-@interface RBShareImageListViewController () <UITableViewDelegate, UITableViewDataSource, RBShareImageRenameDelegate>
+@interface RBShareImageListViewController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
@@ -26,6 +25,8 @@
 #pragma mark - Lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.title = @"查询已抓取的图片";
     
     [self setupUIAndData];
     
@@ -60,25 +61,7 @@
 - (void)_refresh {
     [self.listData removeAllObjects];
     
-    NSString *rootFolderPath = @"";
-    if (self.behavior & RBShareImageFetchResultBehaviorSourceWeibo) {
-        if (self.behavior & RBShareImageFetchResultBehaviorContainerApp) {
-            @weakify(self);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                @strongify(self);
-                self.title = @"查询已抓取的图片数量(App)";
-            });
-            rootFolderPath = [RBFileManager shareExtensionShareImagesAppContainerFolderPath];
-        }
-        if (self.behavior & RBShareImageFetchResultBehaviorContainerGroup) {
-            @weakify(self);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                @strongify(self);
-                self.title = @"查询已抓取的图片数量(Group)";
-            });
-            rootFolderPath = [RBFileManager shareExtensionShareImagesGroupContainerFolderPath];
-        }
-    }
+    NSString *rootFolderPath = [[RBSettingManager defaultManager] pathOfContentInDocumentFolder:RBShareImagesFolderName];
     [RBFileManager createFolderAtPath:rootFolderPath];
     
     NSArray *folderPaths = [RBFileManager folderPathsInFolder:rootFolderPath];
@@ -91,17 +74,12 @@
         NSString *date = @"[未知时间]";
         NSString *count = [NSString stringWithFormat:@"%ld / %@", [RBFileManager filePathsInFolder:folderPath].count, [RBFileManager folderSizeDescriptionAtPath:folderPath]];
         
-        if ([folderName hasPrefix:RBFileShareExtensionOrderedFolderNamePrefix]) {
-            name = folderName;
-            date = [[NSDate date] stringWithFormat:RBTimeFormatyMdHmsSCompact];
-        } else {
-            NSArray *folderComponents = [folderName componentsSeparatedByString:@"+"];
-            if (folderComponents.count > 0) {
-                name = folderComponents.firstObject;
-                date = folderComponents.lastObject;
-                if (folderComponents.count > 2) {
-                    text = [[folderComponents subarrayWithRange:NSMakeRange(1, folderComponents.count - 2)] componentsJoinedByString:@"+"];
-                }
+        NSArray *folderComponents = [folderName componentsSeparatedByString:@"+"];
+        if (folderComponents.count > 0) {
+            name = folderComponents.firstObject;
+            date = folderComponents.lastObject;
+            if (folderComponents.count > 2) {
+                text = [[folderComponents subarrayWithRange:NSMakeRange(1, folderComponents.count - 2)] componentsJoinedByString:@"+"];
             }
         }
         
@@ -127,28 +105,6 @@
     NSInteger index = [notification.object integerValue];
     RBShareImageFilesViewController *vc = [[RBShareImageFilesViewController alloc] initWithFolderPath:self.listData[index][@"folderPath"] andUsername:self.listData[index][@"name"]];
     [self.navigationController pushViewController:vc animated:YES];
-}
-
-#pragma mark - RBShareImageRenameDelegate
-- (void)didConfirmNewFolderName:(NSString *)newFolderName index:(NSInteger)index {
-    NSDictionary *data = self.listData[index];
-    NSString *oldFolderPath = data[@"folderPath"];
-    NSString *newFolderPath = [oldFolderPath.stringByDeletingLastPathComponent stringByAppendingPathComponent:newFolderName];
-    
-    NSMutableDictionary *newData = [NSMutableDictionary dictionaryWithDictionary:data];
-    newData[@"folderPath"] = newFolderPath;
-    NSArray *folderComponents = [newFolderName componentsSeparatedByString:@"+"];
-    if (folderComponents.count > 0) {
-        newData[@"name"] = folderComponents.firstObject;
-        newData[@"date"] = folderComponents.lastObject;
-        if (folderComponents.count > 2) {
-            newData[@"text"] = [[folderComponents subarrayWithRange:NSMakeRange(1, folderComponents.count - 2)] componentsJoinedByString:@"+"];
-        }
-    }
-    self.listData[index] = [newData copy];
-    [self.tableView reloadData];
-    
-    [RBFileManager moveItemFromPath:oldFolderPath toPath:newFolderPath];
 }
 
 #pragma mark - UITableViewDataSource
@@ -179,17 +135,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSString *folderPath = self.listData[indexPath.row][@"folderPath"];
-    if ([folderPath.lastPathComponent hasPrefix:RBFileShareExtensionOrderedFolderNamePrefix]) {
-        RBShareImageRenameViewController *vc = [[RBShareImageRenameViewController alloc] initWithNibName:@"RBShareImageRenameViewController" bundle:nil];
-        vc.index = indexPath.row;
-        vc.delegate = self;
-        
-        [self presentViewController:vc animated:YES completion:nil];
-    } else {
-        RBShareImageFilesViewController *vc = [[RBShareImageFilesViewController alloc] initWithFolderPath:folderPath andUsername:self.listData[indexPath.row][@"name"]];
-        [self.navigationController pushViewController:vc animated:YES];
-    }
+    RBShareImageFilesViewController *vc = [[RBShareImageFilesViewController alloc] initWithFolderPath:self.listData[indexPath.row][@"folderPath"] andUsername:self.listData[indexPath.row][@"name"]];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle != UITableViewCellEditingStyleDelete) {

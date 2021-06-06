@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * _Nonnull const RBFileShareExtensionOrderedFolderNamePrefix;
+extern NSString * _Nonnull const RBShareImagesFolderName;
 
 @interface RBFileManager : NSObject
 
@@ -32,12 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Remove
 + (BOOL)removeFilePath:(NSString *)filePath;
 + (BOOL)removeFileURL:(NSURL *)fileURL;
-
-#pragma mark - RBShareExtension
-+ (NSString *)shareExtensionShareImagesAppContainerFolderPath;
-+ (NSString *)shareExtensionShareImagesGroupContainerFolderPath;
-+ (NSString *)shareExtensionFilePathForShareImageWithName:(NSString *)fileName;
-+ (NSString *)shareExtensionOrderedFolderName;
 
 #pragma mark - File Path
 + (NSArray<NSString *> *)filePathsInFolder:(NSString *)folderPath;

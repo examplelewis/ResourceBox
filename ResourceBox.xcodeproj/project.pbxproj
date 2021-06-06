@@ -10,8 +10,6 @@
 		1595B8BB8DCD2762129F94A3 /* libPods-ResourceBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F57E1A2A00F57401B6EBB773 /* libPods-ResourceBox.a */; };
 		AC24B05E25D2E006009180B0 /* RBShareImageFilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC24B05C25D2E006009180B0 /* RBShareImageFilesViewController.m */; };
 		AC24B05F25D2E006009180B0 /* RBShareImageFilesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC24B05D25D2E006009180B0 /* RBShareImageFilesViewController.xib */; };
-		AC33359F25D40C6F0009DF4D /* RBShareImageRenameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC33359D25D40C6F0009DF4D /* RBShareImageRenameViewController.m */; };
-		AC3335A025D40C6F0009DF4D /* RBShareImageRenameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC33359E25D40C6F0009DF4D /* RBShareImageRenameViewController.xib */; };
 		AC3335A525D416C10009DF4D /* RBShareTextModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3820DD25CEBC4E004ECB23 /* RBShareTextModel.m */; };
 		AC38216A25CEEDE8004ECB23 /* RBShareImageListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC38216125CEEDE8004ECB23 /* RBShareImageListTableViewCell.m */; };
 		AC38216B25CEEDE8004ECB23 /* RBShareImageListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC38216225CEEDE8004ECB23 /* RBShareImageListTableViewCell.xib */; };
@@ -100,9 +98,6 @@
 		AC24B05B25D2E006009180B0 /* RBShareImageFilesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBShareImageFilesViewController.h; sourceTree = "<group>"; };
 		AC24B05C25D2E006009180B0 /* RBShareImageFilesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBShareImageFilesViewController.m; sourceTree = "<group>"; };
 		AC24B05D25D2E006009180B0 /* RBShareImageFilesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RBShareImageFilesViewController.xib; sourceTree = "<group>"; };
-		AC33359C25D40C6F0009DF4D /* RBShareImageRenameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBShareImageRenameViewController.h; sourceTree = "<group>"; };
-		AC33359D25D40C6F0009DF4D /* RBShareImageRenameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBShareImageRenameViewController.m; sourceTree = "<group>"; };
-		AC33359E25D40C6F0009DF4D /* RBShareImageRenameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RBShareImageRenameViewController.xib; sourceTree = "<group>"; };
 		AC3820DC25CEBC4E004ECB23 /* RBShareTextModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBShareTextModel.h; sourceTree = "<group>"; };
 		AC3820DD25CEBC4E004ECB23 /* RBShareTextModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBShareTextModel.m; sourceTree = "<group>"; };
 		AC38216125CEEDE8004ECB23 /* RBShareImageListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBShareImageListTableViewCell.m; sourceTree = "<group>"; };
@@ -290,9 +285,6 @@
 				AC24B05B25D2E006009180B0 /* RBShareImageFilesViewController.h */,
 				AC24B05C25D2E006009180B0 /* RBShareImageFilesViewController.m */,
 				AC24B05D25D2E006009180B0 /* RBShareImageFilesViewController.xib */,
-				AC33359C25D40C6F0009DF4D /* RBShareImageRenameViewController.h */,
-				AC33359D25D40C6F0009DF4D /* RBShareImageRenameViewController.m */,
-				AC33359E25D40C6F0009DF4D /* RBShareImageRenameViewController.xib */,
 				AC54F27E266C826600F67400 /* RBShareImageImportViewController.h */,
 				AC54F27F266C826600F67400 /* RBShareImageImportViewController.m */,
 				AC54F280266C826600F67400 /* RBShareImageImportViewController.xib */,
@@ -661,7 +653,6 @@
 				AC89B06825C9A48500BA2AA4 /* Main.storyboard in Resources */,
 				AC24B05F25D2E006009180B0 /* RBShareImageFilesViewController.xib in Resources */,
 				AC38216B25CEEDE8004ECB23 /* RBShareImageListTableViewCell.xib in Resources */,
-				AC3335A025D40C6F0009DF4D /* RBShareImageRenameViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -764,7 +755,6 @@
 				AC6E5F3C25CC351B00D77430 /* NSDate+YYAdd.m in Sources */,
 				AC6E5F3625CC351B00D77430 /* NSObject+YYAdd.m in Sources */,
 				AC6E5F3325CC351B00D77430 /* NSArray+YYAdd.m in Sources */,
-				AC33359F25D40C6F0009DF4D /* RBShareImageRenameViewController.m in Sources */,
 				AC6E5F3F25CC351B00D77430 /* NSDictionary+YYAdd.m in Sources */,
 				AC6E5ED025CC32FF00D77430 /* RBFileManager.m in Sources */,
 				AC6E5EDF25CC32FF00D77430 /* RBLogManager.m in Sources */,

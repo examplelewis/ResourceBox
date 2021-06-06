@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface RBShareImageImportViewController : UIViewController
 
 @property (nonatomic, copy) NSString *link;
+@property (nonatomic, copy) NSString *inputStatus;
 
 @end
 

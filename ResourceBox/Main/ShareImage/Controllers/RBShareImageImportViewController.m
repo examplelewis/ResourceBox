@@ -61,8 +61,13 @@
     // Data
     self.headers = @[@"链接", @"文字", @"资源"];
     self.filePaths = @[];
-    self.statusText = @"";
-    self.folderName = @"";
+    if (self.inputStatus.isNotEmpty) {
+        self.statusText = self.inputStatus;
+        self.folderName = [RBShareTextModel folderNameWithText:self.inputStatus];
+    } else {
+        self.statusText = @"";
+        self.folderName = @"";
+    }
     
     // Files
     [RBFileManager createFolderAtPath:self.tempFolderPath];
@@ -156,6 +161,10 @@
     } else if (indexPath.section == 1) {
         if (indexPath.row == 1) {
             RBShareImageImportStatusTableViewCell *cell = (RBShareImageImportStatusTableViewCell *)[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+            if (!cell.textViewText.isNotEmpty) {
+                [SVProgressHUD showInfoWithStatus:@"请输入微博内容"];
+                return;
+            }
             
             self.statusText = cell.textViewText;
             self.folderName = [RBShareTextModel folderNameWithText:cell.textViewText];
@@ -238,7 +247,7 @@
         return;
     }
     
-    NSString *rootFolderPath = [[RBSettingManager defaultManager] pathOfContentInDocumentFolder:@"ShareImages"];
+    NSString *rootFolderPath = [[RBSettingManager defaultManager] pathOfContentInDocumentFolder:RBShareImagesFolderName];
     NSString *folderPath = [rootFolderPath stringByAppendingPathComponent:self.folderName];
     
     [RBFileManager createFolderAtPath:folderPath];
