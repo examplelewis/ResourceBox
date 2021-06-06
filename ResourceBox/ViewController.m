@@ -50,6 +50,73 @@
     // UI
 }
 
+#pragma mark - Navigate
+- (void)_navigateToImport {
+    NSArray *inputs = [UIPasteboard generalPasteboard].strings;
+    if (inputs.count == 2) {
+        [self _navigateToImportDirectlyWithInputs:inputs];
+    } else {
+        [self _navigateToImportIndirectly];
+    }
+}
+- (void)_navigateToImportDirectlyWithInputs:(NSArray *)inputs {
+    NSString *inputStatus = inputs.firstObject;
+    NSString *link = inputs.lastObject;
+    
+    if (![link.lowercaseString hasPrefix:@"https://m.weibo.cn/"] && ![link.lowercaseString hasPrefix:@"http://m.weibo.cn/"]) {
+        [SVProgressHUD showInfoWithStatus:@"输入的不是微博链接"];
+        return;
+    }
+    
+    if ([link.lastPathComponent integerValue] == 0) {
+        [SVProgressHUD showInfoWithStatus:@"输入的微博链接有误"];
+        return;
+    }
+    
+    if ([[RBSQLiteManager defaultManager] isWeiboStatusExistsWithStatusId:link.lastPathComponent]) {
+        [SVProgressHUD showInfoWithStatus:@"输入的微博已存储"];
+        return;
+    }
+
+    RBShareImageImportViewController *vc = [[RBShareImageImportViewController alloc] initWithNibName:@"RBShareImageImportViewController" bundle:nil];
+    vc.link = link;
+    vc.inputStatus = inputStatus;
+    
+    [[RBSettingManager defaultManager].navigationController pushViewController:vc animated:YES];
+}
+- (void)_navigateToImportIndirectly {
+    UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"提示" message:@"请输入微博链接" preferredStyle:UIAlertControllerStyleAlert];
+    [ac addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"微博链接";
+    }];
+    
+    [ac addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        if (ac.textFields.count == 0) {
+            [SVProgressHUD showErrorWithStatus:@"UIAlertController 内部出错"];
+            return;
+        }
+        
+        NSString *inputLink = ((UITextField *)ac.textFields.firstObject).text;
+        if ([inputLink.lastPathComponent integerValue] == 0) {
+            [SVProgressHUD showInfoWithStatus:@"输入的微博链接有误"];
+            return;
+        }
+        
+        if ([[RBSQLiteManager defaultManager] isWeiboStatusExistsWithStatusId:inputLink.lastPathComponent]) {
+            [SVProgressHUD showInfoWithStatus:@"输入的微博已存储"];
+            return;
+        }
+        
+        RBShareImageImportViewController *vc = [[RBShareImageImportViewController alloc] initWithNibName:@"RBShareImageImportViewController" bundle:nil];
+        vc.link = inputLink;
+        
+        [[RBSettingManager defaultManager].navigationController pushViewController:vc animated:YES];
+    }]];
+    [ac addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+
+    [self presentViewController:ac animated:true completion:nil];
+}
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.listData.count;
@@ -75,35 +142,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.section == 0) {
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"提示" message:@"请输入微博链接" preferredStyle:UIAlertControllerStyleAlert];
-        [ac addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-            textField.placeholder = @"微博链接";
-        }];
-        
-        [ac addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            if (ac.textFields.count == 0) {
-                [SVProgressHUD showErrorWithStatus:@"UIAlertController 内部出错"];
-                return;
-            }
-            
-            NSString *inputLink = ((UITextField *)ac.textFields.firstObject).text;
-            if ([inputLink.lastPathComponent integerValue] == 0) {
-                [SVProgressHUD showInfoWithStatus:@"输入的微博链接有误"];
-                return;
-            }
-            
-            if ([[RBSQLiteManager defaultManager] isWeiboStatusExistsWithStatusId:inputLink.lastPathComponent]) {
-                [SVProgressHUD showInfoWithStatus:@"输入的微博已存储"];
-                return;
-            }
-            
-            RBShareImageImportViewController *vc = [[RBShareImageImportViewController alloc] initWithNibName:@"RBShareImageImportViewController" bundle:nil];
-            vc.link = inputLink;
-            [[RBSettingManager defaultManager].navigationController pushViewController:vc animated:YES];
-        }]];
-        [ac addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
-
-        [self presentViewController:ac animated:true completion:nil];
+        [self _navigateToImport];
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             RBShareImageListViewController *vc = [[RBShareImageListViewController alloc] initWithNibName:@"RBShareImageListViewController" bundle:nil];

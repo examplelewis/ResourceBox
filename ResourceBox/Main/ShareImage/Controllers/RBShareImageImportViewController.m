@@ -23,7 +23,10 @@
 @property (nonatomic, copy) NSString *tempFolderPath;
 @property (nonatomic, copy) NSArray *headers;
 @property (nonatomic, copy) NSArray<NSString *> *filePaths;
+
 @property (nonatomic, copy) NSString *statusText;
+@property (nonatomic, copy) NSString *statusID;
+@property (nonatomic, copy) NSString *statusUserID;
 @property (nonatomic, copy) NSString *folderName;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -59,7 +62,7 @@
 }
 - (void)setupUIAndData {
     // Data
-    self.headers = @[@"链接", @"文字", @"资源"];
+    self.headers = @[@"链接", @"信息", @"文字", @"资源"];
     self.filePaths = @[];
     if (self.inputStatus.isNotEmpty) {
         self.statusText = self.inputStatus;
@@ -67,6 +70,11 @@
     } else {
         self.statusText = @"";
         self.folderName = @"";
+    }
+    self.statusID = self.link.lastPathComponent;
+    self.statusUserID = self.link.stringByDeletingLastPathComponent.lastPathComponent;
+    if ([self.statusUserID integerValue] == 0) {
+        self.statusUserID = @"0";
     }
     
     // Files
@@ -87,8 +95,10 @@
     if (section == 0) {
         return 1;
     } else if (section == 1) {
-        return 3;
+        return 2;
     } else if (section == 2) {
+        return 3;
+    } else if (section == 3) {
         return self.filePaths.count;
     }
     
@@ -105,6 +115,21 @@
         
         return cell;
     } else if (indexPath.section == 1) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"infoCell"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"infoCell"];
+        }
+        
+        if (indexPath.row == 0) {
+            cell.textLabel.text = @"微博ID";
+            cell.detailTextLabel.text = self.statusID;
+        } else if (indexPath.row == 1) {
+            cell.textLabel.text = @"微博用户ID";
+            cell.detailTextLabel.text = self.statusUserID;
+        }
+        
+        return cell;
+    } else if (indexPath.section == 2) {
         if (indexPath.row == 1) {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"statusRenameCell"];
             if (!cell) {
@@ -125,7 +150,7 @@
             
             return cell;
         }
-    } else if (indexPath.section == 2) {
+    } else if (indexPath.section == 3) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"imageCell"];
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"imageCell"];
@@ -143,7 +168,7 @@
     return self.headers[section];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 1) {
+    if (indexPath.section == 2) {
         if (indexPath.row != 1) {
             return 88.0f;
         }
@@ -259,7 +284,8 @@
     }
     
     RBWeiboStatus *status = [RBWeiboStatus new];
-    status.idStr = self.link.lastPathComponent;
+    status.statusID = self.statusID;
+    status.userID = self.statusUserID;
     status.text = self.statusText;
     status.userName = folderNameComponents.firstObject;
     status.imageUrls = self.filePaths;

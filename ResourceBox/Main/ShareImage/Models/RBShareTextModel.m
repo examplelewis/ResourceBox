@@ -62,7 +62,9 @@
 
 + (NSString *)folderNameWithText:(NSString *)text {
     RBShareTextModel *model = [[RBShareTextModel alloc] initWithText:text];
-    
+    return [RBShareTextModel folderNameWithModel:model];
+}
++ (NSString *)folderNameWithModel:(RBShareTextModel *)model {
     // 1、先添加用户昵称
     NSString *folderName = [NSString stringWithFormat:@"%@+", model.userName];
 

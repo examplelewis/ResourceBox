@@ -50,7 +50,7 @@
     for (RBWeiboStatus *status in statuses) {
         [self.queue inDatabase:^(FMDatabase * _Nonnull db) {
             NSString *update = @"INSERT INTO PLWeiboStatuses (id, weibo_id, author_id, author_name, text, publish_time, fetch_time) values(?, ?, ?, ?, ?, ?, ?)";
-            NSArray *arguments = @[[NSNull null], status.idStr, @(0), status.userName, status.text, @"0000-00-00 00:00:00", [[NSDate date] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"]];
+            NSArray *arguments = @[[NSNull null], status.statusID, status.userID, status.userName, status.text, @"0000-00-00 00:00:00", [[NSDate date] stringWithFormat:@"yyyy-MM-dd HH:mm:ss"]];
             
             BOOL success = [db executeUpdate:update withArgumentsInArray:arguments];
             if (!success) {
@@ -65,7 +65,7 @@
         for (NSString *imgURL in status.imageUrls) {
             [self.queue inDatabase:^(FMDatabase * _Nonnull db) {
                 NSString *update = @"INSERT INTO PLWeiboImages (id, weibo_id, image_url) values(?, ?, ?)";
-                NSArray *arguments = @[[NSNull null], status.idStr, imgURL];
+                NSArray *arguments = @[[NSNull null], status.statusID, imgURL];
                 
                 BOOL success = [db executeUpdate:update withArgumentsInArray:arguments];
                 if (!success) {

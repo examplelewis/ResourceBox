@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)new NS_UNAVAILABLE;
 
 + (NSString *)folderNameWithText:(NSString *)text;
++ (NSString *)folderNameWithModel:(RBShareTextModel *)model;
 
 @end
 
