@@ -12,6 +12,7 @@
 
 #import "RBShareTextModel.h"
 #import "RBShareImageImportStatusTableViewCell.h"
+#import "RBSQLiteManager.h"
 
 @interface RBShareImageImportViewController () <UITableViewDataSource, UITableViewDelegate, PHPickerViewControllerDelegate>
 
@@ -22,7 +23,7 @@
 @property (nonatomic, copy) NSString *tempFolderPath;
 @property (nonatomic, copy) NSArray *headers;
 @property (nonatomic, copy) NSArray<NSString *> *filePaths;
-@property (nonatomic, copy) NSString *status;
+@property (nonatomic, copy) NSString *statusText;
 @property (nonatomic, copy) NSString *folderName;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -60,7 +61,7 @@
     // Data
     self.headers = @[@"链接", @"文字", @"资源"];
     self.filePaths = @[];
-    self.status = @"";
+    self.statusText = @"";
     self.folderName = @"";
     
     // Files
@@ -112,7 +113,7 @@
             RBShareImageImportStatusTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"statusCell"];
             cell.canEditTextView = indexPath.row == 0;
             if (indexPath.row == 0) {
-                cell.textViewText = self.status;
+                cell.textViewText = self.statusText;
             } else {
                 cell.textViewText = self.folderName;
             }
@@ -156,7 +157,7 @@
         if (indexPath.row == 1) {
             RBShareImageImportStatusTableViewCell *cell = (RBShareImageImportStatusTableViewCell *)[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
             
-            self.status = cell.textViewText;
+            self.statusText = cell.textViewText;
             self.folderName = [RBShareTextModel folderNameWithText:cell.textViewText];
             
             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
@@ -242,6 +243,11 @@
         [SVProgressHUD showInfoWithStatus:@"需要选择图片"];
         return;
     }
+    NSArray *folderNameComponents = [self.folderName componentsSeparatedByString:@"+"];
+    if (folderNameComponents.count == 0) {
+        [SVProgressHUD showInfoWithStatus:@"文件名格式有误"];
+        return;
+    }
     
     NSString *rootFolderPath = [[RBSettingManager defaultManager] pathOfContentInDocumentFolder:@"ShareImage"];
     NSString *folderPath = [rootFolderPath stringByAppendingPathComponent:self.folderName];
@@ -254,7 +260,13 @@
         [RBFileManager moveItemFromPath:originFilePath toPath:targetFilePath];
     }
     
+    RBWeiboStatus *status = [RBWeiboStatus new];
+    status.idStr = self.link.lastPathComponent;
+    status.text = self.statusText;
+    status.userName = folderNameComponents.firstObject;
+    status.imageUrls = self.filePaths;
     // 数据库
+    [[RBSQLiteManager defaultManager] insertWeiboStatuses:@[status]];
     
     // Done
     [SVProgressHUD showSuccessWithStatus:@"添加成功"];

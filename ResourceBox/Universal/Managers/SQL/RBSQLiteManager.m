@@ -64,12 +64,12 @@
         
         for (NSString *imgURL in status.imageUrls) {
             [self.queue inDatabase:^(FMDatabase * _Nonnull db) {
-                NSString *update = @"INSERT INTO RBWeiboImages (id, weibo_id, image_url) values(?, ?, ?)";
+                NSString *update = @"INSERT INTO PLWeiboImages (id, weibo_id, image_url) values(?, ?, ?)";
                 NSArray *arguments = @[[NSNull null], status.idStr, imgURL];
                 
                 BOOL success = [db executeUpdate:update withArgumentsInArray:arguments];
                 if (!success) {
-                    NSString *errorDesc = [NSString stringWithFormat:@"往数据表: RBWeiboImages 中插入数据时发生错误：%@", [db lastErrorMessage]];
+                    NSString *errorDesc = [NSString stringWithFormat:@"往数据表: PLWeiboImages 中插入数据时发生错误：%@", [db lastErrorMessage]];
                     
                     [SVProgressHUD showErrorWithStatus:errorDesc];
                     [[RBLogManager defaultManager] addErrorLogWithFormat:@"%@", errorDesc];
