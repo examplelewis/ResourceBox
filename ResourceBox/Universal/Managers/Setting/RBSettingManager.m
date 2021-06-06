@@ -31,7 +31,7 @@
         _preferencePath = NSSearchPathForDirectoriesInDomains(NSPreferencePanesDirectory, NSUserDomainMask, YES).firstObject;
         _temPath = NSTemporaryDirectory();
         
-        _mainDatabasesFolderPath = [_documentPath stringByAppendingPathComponent:@"Databases"];
+        _databasesFolderPath = [_documentPath stringByAppendingPathComponent:@"~Databases"];
         _preferenceFilePath = [self pathOfContentInDocumentFolder:@"RBPreference.plist"];
         
         [self updatePreferences];
@@ -84,8 +84,8 @@
 - (NSString *)pathOfContentInDocumentFolder:(NSString *)component {
     return [self.documentPath stringByAppendingPathComponent:component];
 }
-- (NSString *)pathOfContentInMainDatabasesFolder:(NSString *)component {
-    return [self.mainDatabasesFolderPath stringByAppendingPathComponent:component];
+- (NSString *)pathOfContentInDatabasesFolder:(NSString *)component {
+    return [self.databasesFolderPath stringByAppendingPathComponent:component];
 }
 
 @end

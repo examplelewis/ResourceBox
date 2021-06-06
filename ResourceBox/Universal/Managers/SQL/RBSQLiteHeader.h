@@ -10,8 +10,5 @@
 #define RBSQLiteHeader_h
 
 static NSString * const RBSQLiteFileName = @"data.sqlite";
-static NSString * const RBSQLiteExHentaiFileName = @"exhentai.sqlite";
-
-static NSInteger const RBErrorCodeSQLiteExHentaiHentaiFoundaryExceptionFound = -20001;
 
 #endif /* RBSQLiteHeader_h */

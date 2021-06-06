@@ -10,6 +10,7 @@
 #import "RBShareImageListViewController.h"
 #import "RBShareImageImportViewController.h"
 #import "RBShareTextModel.h"
+#import "RBSQLiteManager.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -122,7 +123,12 @@
             
             NSString *inputLink = ((UITextField *)ac.textFields.firstObject).text;
             if ([inputLink.lastPathComponent integerValue] == 0) {
-                [SVProgressHUD showInfoWithStatus:@"输入的微博链接有误\n"];
+                [SVProgressHUD showInfoWithStatus:@"输入的微博链接有误"];
+                return;
+            }
+            
+            if ([[RBSQLiteManager defaultManager] isWeiboStatusExistsWithStatusId:inputLink.lastPathComponent]) {
+                [SVProgressHUD showInfoWithStatus:@"输入的微博已存储"];
                 return;
             }
             

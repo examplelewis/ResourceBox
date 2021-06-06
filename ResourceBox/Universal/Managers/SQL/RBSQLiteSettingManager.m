@@ -16,18 +16,18 @@
 + (void)backupDatabase {
     [[RBLogManager defaultManager] addDefaultLogWithFormat:@"备份数据库文件, 流程开始"];
     
-    NSArray *sqlites = @[RBSQLiteFileName, RBSQLiteExHentaiFileName];
+    NSArray *sqlites = @[RBSQLiteFileName];
     for (NSInteger i = 0; i < sqlites.count; i++) {
         NSString *sqlitePath = sqlites[i];
         NSString *sqliteName = sqlitePath.stringByDeletingPathExtension;
-        NSString *sqliteFilePath = [[RBSettingManager defaultManager] pathOfContentInMainDatabasesFolder:sqlitePath];
+        NSString *sqliteFilePath = [[RBSettingManager defaultManager] pathOfContentInDatabasesFolder:sqlitePath];
         if (![RBFileManager fileExistsAtPath:sqliteFilePath]) {
             [[RBLogManager defaultManager] addWarningLogWithFormat:@"%@ 文件不存在", sqliteFilePath];
             return;
         }
         
         // 删除过往的备份文件
-        NSArray *sqliteFilePaths = [RBFileManager filePathsInFolder:[RBSettingManager defaultManager].mainDatabasesFolderPath extensions:@[@"sqlite"]];
+        NSArray *sqliteFilePaths = [RBFileManager filePathsInFolder:[RBSettingManager defaultManager].databasesFolderPath extensions:@[@"sqlite"]];
         for (NSString *filePath in sqliteFilePaths) {
             if ([filePath.lastPathComponent hasPrefix:[NSString stringWithFormat:@"%@_", sqliteName]]) {
 //                NSError *error;
@@ -42,7 +42,7 @@
         
         // 复制数据库文件
         NSString *dateString = [[NSDate date] stringWithFormat:RBTimeFormatCompactyMd];
-        NSString *destFilePath = [[RBSettingManager defaultManager] pathOfContentInMainDatabasesFolder:[NSString stringWithFormat:@"%@_%@.sqlite", sqliteName, dateString]];
+        NSString *destFilePath = [[RBSettingManager defaultManager] pathOfContentInDatabasesFolder:[NSString stringWithFormat:@"%@_%@.sqlite", sqliteName, dateString]];
         
         NSError *error;
         BOOL success = [RBFileManager copyItemFromPath:sqliteFilePath toPath:destFilePath error:&error];
@@ -61,13 +61,13 @@
 + (void)restoreDatebase {
     [[RBLogManager defaultManager] addDefaultLogWithFormat:@"还原数据库文件, 流程开始"];
     
-    NSArray *sqlites = @[RBSQLiteFileName, RBSQLiteExHentaiFileName];
+    NSArray *sqlites = @[RBSQLiteFileName];
     for (NSInteger i = 0; i < sqlites.count; i++) {
         NSString *sqlitePath = sqlites[i];
         NSString *sqliteName = sqlitePath.stringByDeletingPathExtension;
         
         // 先查找备份数据库文件是否存在
-        NSArray *sqliteFilePaths = [RBFileManager filePathsInFolder:[RBSettingManager defaultManager].mainDatabasesFolderPath extensions:@[@"sqlite"]];
+        NSArray *sqliteFilePaths = [RBFileManager filePathsInFolder:[RBSettingManager defaultManager].databasesFolderPath extensions:@[@"sqlite"]];
         sqliteFilePaths = [sqliteFilePaths bk_select:^BOOL(NSString *obj) {
             return [obj.lastPathComponent hasPrefix:[NSString stringWithFormat:@"%@_", sqliteName]];
         }];
@@ -77,7 +77,7 @@
         }
         
         // 再查找原数据库文件是否存在，存在的话就删除
-        NSString *sqliteFilePath = [[RBSettingManager defaultManager] pathOfContentInMainDatabasesFolder:sqlitePath];
+        NSString *sqliteFilePath = [[RBSettingManager defaultManager] pathOfContentInDatabasesFolder:sqlitePath];
         if ([RBFileManager fileExistsAtPath:sqliteFilePath]) {
 //            NSError *error;
 //            BOOL success = [RBFileManager trashItemAtURL:[NSURL fileURLWithPath:sqliteFilePath] resultingItemURL:nil error:&error];

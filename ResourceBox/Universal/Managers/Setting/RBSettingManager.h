@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) NSString *preferencePath;
 @property (nonatomic, strong, readonly) NSString *temPath;
 
-@property (nonatomic, strong, readonly) NSString *mainDatabasesFolderPath;
+@property (nonatomic, strong, readonly) NSString *databasesFolderPath;
 @property (nonatomic, strong, readonly) NSString *preferenceFilePath;
 
 #pragma mark - Lifecycle
@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Paths
 - (NSString *)pathOfContentInDocumentFolder:(NSString *)component;
-- (NSString *)pathOfContentInMainDatabasesFolder:(NSString *)component;
+- (NSString *)pathOfContentInDatabasesFolder:(NSString *)component;
 
 @end
 
