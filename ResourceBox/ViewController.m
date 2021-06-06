@@ -109,10 +109,31 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.section == 0) {
-        RBShareImageImportViewController *vc = [[RBShareImageImportViewController alloc] initWithNibName:@"RBShareImageImportViewController" bundle:nil];
-        vc.link = @"https://www.baidu.com/";
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"提示" message:@"请输入微博链接" preferredStyle:UIAlertControllerStyleAlert];
+        [ac addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.placeholder = @"微博链接";
+        }];
         
-        [[RBSettingManager defaultManager].navigationController pushViewController:vc animated:YES];
+        [ac addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            if (ac.textFields.count == 0) {
+                [SVProgressHUD showErrorWithStatus:@"UIAlertController 内部出错"];
+                return;
+            }
+            
+            NSString *inputLink = ((UITextField *)ac.textFields.firstObject).text;
+            if ([inputLink.lastPathComponent integerValue] == 0) {
+                [SVProgressHUD showInfoWithStatus:@"输入的微博链接有误\n"];
+                return;
+            }
+            
+            RBShareImageImportViewController *vc = [[RBShareImageImportViewController alloc] initWithNibName:@"RBShareImageImportViewController" bundle:nil];
+            vc.link = inputLink;
+            
+            [[RBSettingManager defaultManager].navigationController pushViewController:vc animated:YES];
+        }]];
+        [ac addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+
+        [self presentViewController:ac animated:true completion:nil];
     } else if (indexPath.section == 1) {
         RBShareImageListViewController *vc = [[RBShareImageListViewController alloc] initWithNibName:@"RBShareImageListViewController" bundle:nil];
         if (indexPath.row == 0) {

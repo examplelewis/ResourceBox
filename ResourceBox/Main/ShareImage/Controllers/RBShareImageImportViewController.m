@@ -161,8 +161,6 @@
             
             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
         }
-    } else if (indexPath.section == 2) {
-        // MWPhotoBrowser
     }
 }
 
