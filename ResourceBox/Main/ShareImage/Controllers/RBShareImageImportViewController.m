@@ -23,7 +23,7 @@
 @property (nonatomic, copy) NSArray *headers;
 @property (nonatomic, copy) NSArray<NSString *> *filePaths;
 
-@property (nonatomic, copy) RBWeiboStatus *status;
+@property (nonatomic, strong) RBWeiboStatus *status;
 //@property (nonatomic, copy) NSString *statusText;
 //@property (nonatomic, copy) NSString *statusID;
 //@property (nonatomic, copy) NSString *statusUserID;
