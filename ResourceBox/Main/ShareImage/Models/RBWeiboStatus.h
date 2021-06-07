@@ -11,11 +11,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RBWeiboStatus : NSObject
 
+@property (nonatomic, copy) NSString *initialText; // 初始化的Text
+@property (nonatomic, copy) NSString *username; // 用户名
+
 @property (nonatomic, copy) NSString *statusID;
 @property (nonatomic, copy) NSString *userID;
-@property (nonatomic, copy) NSString *userName;
-@property (nonatomic, copy) NSString *text;
 @property (nonatomic, copy) NSArray<NSString *> *imageUrls;
+
+@property (nonatomic, copy) NSString *folderName; // 文件夹名
 
 @end
 

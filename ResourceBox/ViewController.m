@@ -9,7 +9,6 @@
 
 #import "RBShareImageListViewController.h"
 #import "RBShareImageImportViewController.h"
-#import "RBShareTextModel.h"
 #import "RBSQLiteManager.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>

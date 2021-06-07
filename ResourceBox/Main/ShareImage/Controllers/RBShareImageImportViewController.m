@@ -10,7 +10,6 @@
 #import <PhotosUI/PhotosUI.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
-#import "RBShareTextModel.h"
 #import "RBShareImageImportStatusTableViewCell.h"
 #import "RBSQLiteManager.h"
 
@@ -24,10 +23,11 @@
 @property (nonatomic, copy) NSArray *headers;
 @property (nonatomic, copy) NSArray<NSString *> *filePaths;
 
-@property (nonatomic, copy) NSString *statusText;
-@property (nonatomic, copy) NSString *statusID;
-@property (nonatomic, copy) NSString *statusUserID;
-@property (nonatomic, copy) NSString *folderName;
+@property (nonatomic, copy) RBWeiboStatus *status;
+//@property (nonatomic, copy) NSString *statusText;
+//@property (nonatomic, copy) NSString *statusID;
+//@property (nonatomic, copy) NSString *statusUserID;
+//@property (nonatomic, copy) NSString *folderName;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -64,18 +64,13 @@
     // Data
     self.headers = @[@"链接", @"信息", @"文字", @"资源"];
     self.filePaths = @[];
+    
+    self.status = [RBWeiboStatus new];
     if (self.inputStatus.isNotEmpty) {
-        self.statusText = self.inputStatus;
-        self.folderName = [RBShareTextModel folderNameWithText:self.inputStatus];
-    } else {
-        self.statusText = @"";
-        self.folderName = @"";
+        self.status.initialText = self.inputStatus;
     }
-    self.statusID = self.link.lastPathComponent;
-    self.statusUserID = self.link.stringByDeletingLastPathComponent.lastPathComponent;
-    if ([self.statusUserID integerValue] == 0) {
-        self.statusUserID = @"0";
-    }
+    self.status.statusID = self.link.lastPathComponent;
+    self.status.userID = self.link.stringByDeletingLastPathComponent.lastPathComponent;
     
     // Files
     [RBFileManager createFolderAtPath:self.tempFolderPath];
@@ -122,10 +117,10 @@
         
         if (indexPath.row == 0) {
             cell.textLabel.text = @"微博ID";
-            cell.detailTextLabel.text = self.statusID;
+            cell.detailTextLabel.text = self.status.statusID;
         } else if (indexPath.row == 1) {
             cell.textLabel.text = @"微博用户ID";
-            cell.detailTextLabel.text = self.statusUserID;
+            cell.detailTextLabel.text = self.status.userID;
         }
         
         return cell;
@@ -143,9 +138,9 @@
             RBShareImageImportStatusTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"statusCell"];
             cell.canEditTextView = indexPath.row == 0;
             if (indexPath.row == 0) {
-                cell.textViewText = self.statusText;
+                cell.textViewText = self.status.initialText;
             } else {
-                cell.textViewText = self.folderName;
+                cell.textViewText = self.status.folderName;
             }
             
             return cell;
@@ -191,8 +186,7 @@
                 return;
             }
             
-            self.statusText = cell.textViewText;
-            self.folderName = [RBShareTextModel folderNameWithText:cell.textViewText];
+            self.status.initialText = cell.textViewText;
             
             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
         }
@@ -259,7 +253,7 @@
     [self presentViewController:pickerViewController animated:YES completion:nil];
 }
 - (void)doneBarButtonItemPressed:(UIBarButtonItem *)sender {
-    if (self.folderName.length == 0) {
+    if (self.status.folderName.length == 0) {
         [SVProgressHUD showInfoWithStatus:@"需要文件夹名"];
         return;
     }
@@ -267,15 +261,10 @@
         [SVProgressHUD showInfoWithStatus:@"需要选择图片"];
         return;
     }
-    NSArray *folderNameComponents = [self.folderName componentsSeparatedByString:@"+"];
-    if (folderNameComponents.count == 0) {
-        [SVProgressHUD showInfoWithStatus:@"文件名格式有误"];
-        return;
-    }
     
+    // 移动文件到对应的文件夹中
     NSString *rootFolderPath = [[RBSettingManager defaultManager] pathOfContentInDocumentFolder:RBShareImagesFolderName];
-    NSString *folderPath = [rootFolderPath stringByAppendingPathComponent:self.folderName];
-    
+    NSString *folderPath = [rootFolderPath stringByAppendingPathComponent:self.status.folderName];
     [RBFileManager createFolderAtPath:folderPath];
     for (NSInteger i = 0; i < self.filePaths.count; i++) {
         NSString *originFilePath = self.filePaths[i];
@@ -283,16 +272,10 @@
         
         [RBFileManager moveItemFromPath:originFilePath toPath:targetFilePath];
     }
-    
-    RBWeiboStatus *status = [RBWeiboStatus new];
-    status.statusID = self.statusID;
-    status.userID = self.statusUserID;
-    status.text = self.statusText;
-    status.userName = folderNameComponents.firstObject;
-    status.imageUrls = self.filePaths;
-    // 数据库
-    [[RBSQLiteManager defaultManager] insertWeiboStatuses:@[status]];
-    
+    // 赋值imageUrls
+    self.status.imageUrls = self.filePaths;
+    // 写入数据库
+    [[RBSQLiteManager defaultManager] insertWeiboStatuses:@[self.status]];
     // Done
     [SVProgressHUD showSuccessWithStatus:@"添加成功"];
     [self.navigationController popViewControllerAnimated:YES];

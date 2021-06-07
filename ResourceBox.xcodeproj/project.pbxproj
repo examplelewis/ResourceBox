@@ -10,7 +10,6 @@
 		1595B8BB8DCD2762129F94A3 /* libPods-ResourceBox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F57E1A2A00F57401B6EBB773 /* libPods-ResourceBox.a */; };
 		AC24B05E25D2E006009180B0 /* RBShareImageFilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC24B05C25D2E006009180B0 /* RBShareImageFilesViewController.m */; };
 		AC24B05F25D2E006009180B0 /* RBShareImageFilesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC24B05D25D2E006009180B0 /* RBShareImageFilesViewController.xib */; };
-		AC3335A525D416C10009DF4D /* RBShareTextModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3820DD25CEBC4E004ECB23 /* RBShareTextModel.m */; };
 		AC38216A25CEEDE8004ECB23 /* RBShareImageListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC38216125CEEDE8004ECB23 /* RBShareImageListTableViewCell.m */; };
 		AC38216B25CEEDE8004ECB23 /* RBShareImageListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC38216225CEEDE8004ECB23 /* RBShareImageListTableViewCell.xib */; };
 		AC38216C25CEEDE8004ECB23 /* RBShareImageListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC38216625CEEDE8004ECB23 /* RBShareImageListViewController.xib */; };
@@ -98,8 +97,6 @@
 		AC24B05B25D2E006009180B0 /* RBShareImageFilesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBShareImageFilesViewController.h; sourceTree = "<group>"; };
 		AC24B05C25D2E006009180B0 /* RBShareImageFilesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBShareImageFilesViewController.m; sourceTree = "<group>"; };
 		AC24B05D25D2E006009180B0 /* RBShareImageFilesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RBShareImageFilesViewController.xib; sourceTree = "<group>"; };
-		AC3820DC25CEBC4E004ECB23 /* RBShareTextModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RBShareTextModel.h; sourceTree = "<group>"; };
-		AC3820DD25CEBC4E004ECB23 /* RBShareTextModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RBShareTextModel.m; sourceTree = "<group>"; };
 		AC38216125CEEDE8004ECB23 /* RBShareImageListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RBShareImageListTableViewCell.m; sourceTree = "<group>"; };
 		AC38216225CEEDE8004ECB23 /* RBShareImageListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RBShareImageListTableViewCell.xib; sourceTree = "<group>"; };
 		AC38216425CEEDE8004ECB23 /* RBShareImageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RBShareImageListViewController.h; sourceTree = "<group>"; };
@@ -245,8 +242,6 @@
 		AC10123525D5B2A900DC55E7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				AC3820DC25CEBC4E004ECB23 /* RBShareTextModel.h */,
-				AC3820DD25CEBC4E004ECB23 /* RBShareTextModel.m */,
 				AC54F2AD266CC10100F67400 /* RBWeiboStatus.h */,
 				AC54F2AE266CC10100F67400 /* RBWeiboStatus.m */,
 			);
@@ -720,7 +715,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC54F2AF266CC10100F67400 /* RBWeiboStatus.m in Sources */,
-				AC3335A525D416C10009DF4D /* RBShareTextModel.m in Sources */,
 				AC24B05E25D2E006009180B0 /* RBShareImageFilesViewController.m in Sources */,
 				AC6E5EDE25CC32FF00D77430 /* RBSettingManager.m in Sources */,
 				AC6E5ED125CC32FF00D77430 /* RBUtilityManager.m in Sources */,
