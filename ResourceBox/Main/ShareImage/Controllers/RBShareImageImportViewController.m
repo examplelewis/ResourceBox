@@ -230,6 +230,7 @@
     [data writeToFile:imageFilePath atomically:YES];
     
     self.filePaths = [self.filePaths arrayByAddingObject:imageFilePath];
+    self.headers = @[@"链接", @"信息", @"文字", [NSString stringWithFormat:@"资源(%ld)(%@)", self.filePaths.count, [RBFileManager folderSizeDescriptionAtPath:self.tempFolderPath]]];
     
     @weakify(self);
     dispatch_async(dispatch_get_main_queue(), ^{
