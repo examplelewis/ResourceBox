@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RBShareViewController">
+            <connections>
+                <outlet property="closeButton" destination="F3C-1E-Jgj" id="pQO-kh-szA"/>
+                <outlet property="indicator" destination="fLP-Vp-Msa" id="nhU-1c-gjc"/>
+                <outlet property="statusTextView" destination="juH-8s-Bqk" id="WXo-Cs-u4p"/>
+                <outlet property="undoButton" destination="lA8-dM-07k" id="Nih-D6-XLH"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="waitingLabel" destination="x4W-6Z-loi" id="eNS-Pd-NxJ"/>
+                <outlet property="waitingView" destination="jIm-kb-VLa" id="Vh8-3v-yGm"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="juH-8s-Bqk">
+                    <rect key="frame" x="0.0" y="44" width="414" height="731"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="textColor" systemColor="labelColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jIm-kb-VLa">
+                    <rect key="frame" x="0.0" y="44" width="414" height="77"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正在读取，稍等片刻" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x4W-6Z-loi">
+                            <rect key="frame" x="129" y="48" width="156" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="CvC-j9-aXV"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="fLP-Vp-Msa">
+                            <rect key="frame" x="197" y="8" width="20" height="20"/>
+                        </activityIndicatorView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="fLP-Vp-Msa" firstAttribute="top" secondItem="jIm-kb-VLa" secondAttribute="top" constant="8" id="2jG-mk-opl"/>
+                        <constraint firstAttribute="bottom" secondItem="x4W-6Z-loi" secondAttribute="bottom" constant="8" id="Ee5-tn-Yvc"/>
+                        <constraint firstItem="x4W-6Z-loi" firstAttribute="top" secondItem="fLP-Vp-Msa" secondAttribute="bottom" constant="20" id="GYl-N6-WMo"/>
+                        <constraint firstItem="fLP-Vp-Msa" firstAttribute="centerX" secondItem="jIm-kb-VLa" secondAttribute="centerX" id="NlZ-sW-lOQ"/>
+                        <constraint firstItem="x4W-6Z-loi" firstAttribute="centerX" secondItem="jIm-kb-VLa" secondAttribute="centerX" id="ndM-WD-XQq"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F3C-1E-Jgj">
+                    <rect key="frame" x="349" y="825" width="55" height="37"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="55" id="OuX-I9-A7P"/>
+                        <constraint firstAttribute="height" constant="37" id="v4k-Gu-HVV"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <state key="normal" title="关闭"/>
+                    <connections>
+                        <action selector="closeButtonDidPress:" destination="-1" eventType="touchUpInside" id="Qd3-7z-M4H"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lA8-dM-07k">
+                    <rect key="frame" x="168.5" y="795" width="77" height="30"/>
+                    <state key="normal" title="撤销重命名"/>
+                    <connections>
+                        <action selector="undoRenameButtonDidPress:" destination="-1" eventType="touchUpInside" id="qQA-Ok-gxb"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="F3C-1E-Jgj" firstAttribute="top" secondItem="lA8-dM-07k" secondAttribute="bottom" id="042-oV-hfq"/>
+                <constraint firstItem="jIm-kb-VLa" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="1uE-ic-FcV"/>
+                <constraint firstItem="lA8-dM-07k" firstAttribute="top" secondItem="juH-8s-Bqk" secondAttribute="bottom" constant="20" id="2n2-E8-XJl"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="F3C-1E-Jgj" secondAttribute="trailing" constant="10" id="E8l-ac-f4A"/>
+                <constraint firstItem="lA8-dM-07k" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Qxp-eO-a5x"/>
+                <constraint firstItem="juH-8s-Bqk" firstAttribute="trailing" secondItem="Q5M-cg-NOt" secondAttribute="trailing" id="SVr-fI-KTh"/>
+                <constraint firstItem="jIm-kb-VLa" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="WX1-PQ-r3m"/>
+                <constraint firstItem="juH-8s-Bqk" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="abK-Oq-qDS"/>
+                <constraint firstItem="juH-8s-Bqk" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="fFy-VK-9Kv"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="F3C-1E-Jgj" secondAttribute="bottom" id="gPE-L8-s0U"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="jIm-kb-VLa" secondAttribute="trailing" id="uh3-NI-vWN"/>
+            </constraints>
+            <point key="canvasLocation" x="140.57971014492756" y="112.5"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

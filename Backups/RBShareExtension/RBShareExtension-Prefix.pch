@@ -1,0 +1,33 @@
+//
+//  RBShareExtension-Prefix.pch
+//  ResourceBox
+//
+//  Created by 龚宇 on 21/02/06.
+//
+
+#ifndef RBShareExtension_Prefix_pch
+#define RBShareExtension_Prefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+#import <CocoaLumberjack.h>
+//#import <DateTools/NSDate+DateTools.h>
+#import <BlocksKit/BlocksKit.h>
+#import <Masonry.h>
+//#import <YYModel.h>
+
+#import "RACEXTScope.h"
+#import "YYCategories.h"
+
+#import "RBOCHeader.h"
+#import "RBConstHeader.h"
+#import "RBCategoriesHeader.h"
+#import "RBManagersHeader.h"
+
+static DDLogLevel ddLogLevel = DDLogLevelAll;
+
+#endif /* RBShareExtension_Prefix_pch */
