@@ -191,14 +191,14 @@
     _statusID = statusID.copy;
     
     if ([self.statusID integerValue] == 0) {
-        self.statusID = @"0";
+        _statusID = @"0";
     }
 }
 - (void)setUserID:(NSString *)userID {
     _userID = userID.copy;
     
     if ([self.userID integerValue] == 0) {
-        self.userID = @"0";
+        _userID = @"0";
     }
 }
 

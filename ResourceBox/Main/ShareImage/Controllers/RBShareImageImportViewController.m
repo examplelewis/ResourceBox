@@ -203,21 +203,31 @@
         for (NSInteger i = 0; i < results.count; i++) {
             @weakify(self);
             PHPickerResult *result = results[i];
-            [result.itemProvider loadObjectOfClass:[UIImage class] completionHandler:^(__kindof id<NSItemProviderReading>  _Nullable object, NSError * _Nullable error) {
-                if ([object isKindOfClass:[UIImage class]]) {
+            [result.itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypeImage options:nil completionHandler:^(NSData *data, NSError *error) {
+                // 尽量遵循原图片尺寸、格式
+                if (data) {
                     @strongify(self);
-                    [self processImageData:UIImageJPEGRepresentation((UIImage *)object, 0.95f) atIndex:i];
+                    [self processImageData:data atIndex:i];
+                } else if (error.code == -1000 || error.code == -1200) {
+                    // -1200 的错误出现意味着，转换成Data失败，需要直接显示成Image
+                    [result.itemProvider loadObjectOfClass:[UIImage class] completionHandler:^(__kindof id<NSItemProviderReading>  _Nullable object, NSError * _Nullable error) {
+                        if ([object isKindOfClass:[UIImage class]]) {
+                            @strongify(self);
+                            [self processImageData:UIImageJPEGRepresentation((UIImage *)object, 0.95f) atIndex:i];
+                        }
+                    }];
+                } else {
+                    [SVProgressHUD showInfoWithStatus:@"图片读取失败，请重试一次。若依然失败，请分批添加"];
                 }
             }];
         }
-    } else {
-        
     }
 }
 
+#pragma mark - File Processes
 - (void)processImageData:(NSData *)data atIndex:(NSInteger)index {
     NSString *fileNameSuffix = [NSString stringWithFormat:@"%@ %ld", self.tempFolderPath, index];
-    NSString *fileNameAndExt = [NSString stringWithFormat:@"%@%@.jpg", self.tempFolderPath.md5String.md5Middle, fileNameSuffix.md5String.md5Middle];
+    NSString *fileNameAndExt = [NSString stringWithFormat:@"%@%@.%@", self.tempFolderPath.md5String.md5Middle, fileNameSuffix.md5String.md5Middle, [self extensionForImageData:data]];
     NSString *imageFilePath = [self.tempFolderPath stringByAppendingPathComponent:fileNameAndExt];
 //    NSLog(@"imageFilePath: %@", imageFilePath);
     
@@ -231,6 +241,26 @@
         @strongify(self);
         [self.tableView reloadData];
     });
+}
+
+#pragma mark - Tools
+- (NSString *)extensionForImageData:(NSData *)data {
+    uint8_t c;
+    [data getBytes:&c length:1];
+
+    switch (c) {
+        case 0xFF:
+            return @"jpeg";
+        case 0x89:
+            return @"png";
+        case 0x47:
+            return @"gif";
+        case 0x49:
+        case 0x4D:
+            return @"tiff";
+    }
+    
+    return @"jpeg";
 }
 
 #pragma mark - Actions
