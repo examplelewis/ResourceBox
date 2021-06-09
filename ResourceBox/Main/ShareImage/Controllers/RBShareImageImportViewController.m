@@ -15,10 +15,6 @@
 
 @interface RBShareImageImportViewController () <UITableViewDataSource, UITableViewDelegate, PHPickerViewControllerDelegate>
 
-@property (nonatomic, strong) UIBarButtonItem *imageBBI;
-@property (nonatomic, strong) UIBarButtonItem *videoBBI;
-@property (nonatomic, strong) UIBarButtonItem *doneBBI;
-
 @property (nonatomic, copy) NSString *tempFolderPath;
 @property (nonatomic, copy) NSArray *headers;
 @property (nonatomic, copy) NSArray<NSString *> *filePaths;
@@ -41,7 +37,6 @@
     
     self.title = @"Import";
     
-    [self setupBarButtonItems];
     [self setupNavigationBar];
     [self setupUIAndData];
 }
@@ -50,15 +45,13 @@
 }
 
 #pragma mark - Configure
-- (void)setupBarButtonItems {
-    self.doneBBI = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(doneBarButtonItemPressed:)];
-    
-    self.imageBBI = [[UIBarButtonItem alloc] initWithTitle:@"图片" style:UIBarButtonItemStylePlain target:self action:@selector(imageBarButtonItemPressed:)];
-    
-    self.videoBBI = [[UIBarButtonItem alloc] initWithTitle:@"视频" style:UIBarButtonItemStylePlain target:self action:@selector(videoBarButtonItemPressed:)];
-}
 - (void)setupNavigationBar {
-    self.navigationItem.rightBarButtonItems = @[self.doneBBI, self.imageBBI, self.videoBBI];
+    UIBarButtonItem *doneBBI = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(doneBarButtonItemPressed:)];
+    UIBarButtonItem *imageBBI = [[UIBarButtonItem alloc] initWithTitle:@"图片" style:UIBarButtonItemStylePlain target:self action:@selector(imageBarButtonItemPressed:)];
+    UIBarButtonItem *videoBBI = [[UIBarButtonItem alloc] initWithTitle:@"视频" style:UIBarButtonItemStylePlain target:self action:@selector(videoBarButtonItemPressed:)];
+    UIBarButtonItem *livePhotoBBI = [[UIBarButtonItem alloc] initWithTitle:@"Live" style:UIBarButtonItemStylePlain target:self action:@selector(livePhotoBarButtonItemPressed:)];
+    
+    self.navigationItem.rightBarButtonItems = @[doneBBI, imageBBI, videoBBI, livePhotoBBI];
 }
 - (void)setupUIAndData {
     // Data
@@ -197,6 +190,9 @@
 - (void)picker:(PHPickerViewController *)picker didFinishPicking:(NSArray<PHPickerResult *> *)results {
     BOOL isImage = [picker.configuration.filter isEqual:[PHPickerFilter imagesFilter]];
     BOOL isVideo = [picker.configuration.filter isEqual:[PHPickerFilter videosFilter]];
+    BOOL isLivePhoto = [picker.configuration.filter isEqual:[PHPickerFilter livePhotosFilter]];
+    
+    NSInteger filePathsCount = self.filePaths.count; // 如果多次加图片，那么图片名称可能重复，因为把Index带进去生成名字的，所以Index需要不重复
     
     [picker dismissViewControllerAnimated:YES completion:nil];
     
@@ -213,7 +209,7 @@
                     [result.itemProvider loadObjectOfClass:[UIImage class] completionHandler:^(__kindof id<NSItemProviderReading>  _Nullable object, NSError * _Nullable error) {
                         if ([object isKindOfClass:[UIImage class]]) {
                             @strongify(self);
-                            [self processImageData:UIImageJPEGRepresentation((UIImage *)object, 0.95f) atIndex:i];
+                            [self processImageData:UIImageJPEGRepresentation((UIImage *)object, 0.95f) atIndex:filePathsCount + i];
                         }
                     }];
                     
@@ -233,9 +229,22 @@
             if ([result.itemProvider hasItemConformingToTypeIdentifier:@"public.mpeg-4"]) {
                 [result.itemProvider loadFileRepresentationForTypeIdentifier:@"public.mpeg-4" completionHandler:^(NSURL * _Nullable url, NSError * _Nullable error) {
                     @strongify(self);
-                    [self processVideoURL:url atIndex:i];
+                    [self processVideoURL:url atIndex:filePathsCount + i];
                 }];
             }
+        }
+    }
+    
+    if (isLivePhoto) {
+        for (NSInteger i = 0; i < results.count; i++) {
+            @weakify(self);
+            PHPickerResult *result = results[i];
+            [result.itemProvider loadObjectOfClass:[PHLivePhoto class] completionHandler:^(__kindof id<NSItemProviderReading>  _Nullable object, NSError * _Nullable error) {
+                if ([object isKindOfClass:[PHLivePhoto class]]) {
+                    @strongify(self);
+                    [self processLivePhoto:(PHLivePhoto *)object atIndex:filePathsCount + i];
+                }
+            }];
         }
     }
 }
@@ -275,6 +284,35 @@
         [self.tableView reloadData];
     });
 }
+- (void)processLivePhoto:(PHLivePhoto *)livePhoto atIndex:(NSInteger)index {
+    // 只存视频
+    NSArray<PHAssetResource *> *assetResources = [PHAssetResource assetResourcesForLivePhoto:livePhoto];
+    NSArray<PHAssetResource *> *videoResources = [assetResources filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K = %@", @"type", @(PHAssetResourceTypePairedVideo)]];
+    if (videoResources.count > 0) {
+        NSString *fileNameSuffix = [NSString stringWithFormat:@"%@ %ld", self.tempFolderPath, index];
+        NSString *fileNameAndExt = [NSString stringWithFormat:@"%@%@.mov", self.tempFolderPath.md5String.md5Middle, fileNameSuffix.md5String.md5Middle];
+        NSString *filePath = [self.tempFolderPath stringByAppendingPathComponent:fileNameAndExt];
+        [self _saveAssetResource:videoResources.firstObject toFilePath:filePath];
+    }
+}
+- (void)_saveAssetResource:(PHAssetResource *)assetResource toFilePath:(NSString *)filePath {
+    @weakify(self);
+    [[PHAssetResourceManager defaultManager] writeDataForAssetResource:assetResource toFile:[NSURL fileURLWithPath:filePath] options:nil completionHandler:^(NSError * _Nullable error) {
+        if (!error) {
+            @strongify(self);
+            
+            self.filePaths = [self.filePaths arrayByAddingObject:filePath];
+            self.headers = @[@"链接", @"信息", @"文字", [NSString stringWithFormat:@"资源(%ld)(%@)", self.filePaths.count, [RBFileManager folderSizeDescriptionAtPath:self.tempFolderPath]]];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                @strongify(self);
+                [self.tableView reloadData];
+            });
+        } else {
+            [SVProgressHUD showInfoWithStatus:@"读取LivePhoto出错，请重试"];
+        }
+    }];
+}
 
 #pragma mark - Tools
 - (NSString *)extensionForImageData:(NSData *)data {
@@ -310,6 +348,15 @@
     PHPickerConfiguration *config = [[PHPickerConfiguration alloc] init];
     config.selectionLimit = 18;
     config.filter = [PHPickerFilter videosFilter];
+
+    PHPickerViewController *pickerViewController = [[PHPickerViewController alloc] initWithConfiguration:config];
+    pickerViewController.delegate = self;
+    [self presentViewController:pickerViewController animated:YES completion:nil];
+}
+- (void)livePhotoBarButtonItemPressed:(UIBarButtonItem *)sender {
+    PHPickerConfiguration *config = [[PHPickerConfiguration alloc] init];
+    config.selectionLimit = 18;
+    config.filter = [PHPickerFilter livePhotosFilter];
 
     PHPickerViewController *pickerViewController = [[PHPickerViewController alloc] initWithConfiguration:config];
     pickerViewController.delegate = self;
