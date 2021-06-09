@@ -73,7 +73,13 @@
     }
     
     if ([[RBSQLiteManager defaultManager] isWeiboStatusExistsWithStatusId:link.lastPathComponent]) {
-        [SVProgressHUD showInfoWithStatus:@"输入的微博已存储"];
+        // 如果剪贴板上的微博内容已经存储，那么弹出手动输入框
+        [self _navigateToImportIndirectly];
+        // 延迟0.25秒，等UIAlertController显示后再显示SVProgressHUD
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [SVProgressHUD showInfoWithStatus:@"输入的微博已存储"];
+        });
+        
         return;
     }
 
