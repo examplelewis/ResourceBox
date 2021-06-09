@@ -196,6 +196,7 @@
 #pragma mark - PHPickerViewControllerDelegate
 - (void)picker:(PHPickerViewController *)picker didFinishPicking:(NSArray<PHPickerResult *> *)results {
     BOOL isImage = [picker.configuration.filter isEqual:[PHPickerFilter imagesFilter]];
+    BOOL isVideo = [picker.configuration.filter isEqual:[PHPickerFilter videosFilter]];
     
     [picker dismissViewControllerAnimated:YES completion:nil];
     
@@ -209,17 +210,32 @@
                     @strongify(self);
                     [self processImageData:data atIndex:i];
                 } else if (error.code == -1000 || error.code == -1200) {
-                    // -1200 的错误出现意味着，转换成Data失败，需要直接显示成Image
                     [result.itemProvider loadObjectOfClass:[UIImage class] completionHandler:^(__kindof id<NSItemProviderReading>  _Nullable object, NSError * _Nullable error) {
                         if ([object isKindOfClass:[UIImage class]]) {
                             @strongify(self);
                             [self processImageData:UIImageJPEGRepresentation((UIImage *)object, 0.95f) atIndex:i];
                         }
                     }];
+                    
+//                    // -1200 的错误出现意味着，转换成Data失败，需要直接显示成Image
+//                    [result.itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypeImage options:nil completionHandler:^(UIImage *image, NSError *error) {}];
                 } else {
                     [SVProgressHUD showInfoWithStatus:@"图片读取失败，请重试一次。若依然失败，请分批添加"];
                 }
             }];
+        }
+    }
+    
+    if (isVideo) {
+        for (NSInteger i = 0; i < results.count; i++) {
+            @weakify(self);
+            PHPickerResult *result = results[i];
+            if ([result.itemProvider hasItemConformingToTypeIdentifier:@"public.mpeg-4"]) {
+                [result.itemProvider loadFileRepresentationForTypeIdentifier:@"public.mpeg-4" completionHandler:^(NSURL * _Nullable url, NSError * _Nullable error) {
+                    @strongify(self);
+                    [self processVideoURL:url atIndex:i];
+                }];
+            }
         }
     }
 }
@@ -234,6 +250,23 @@
     [data writeToFile:imageFilePath atomically:YES];
     
     self.filePaths = [self.filePaths arrayByAddingObject:imageFilePath];
+    self.headers = @[@"链接", @"信息", @"文字", [NSString stringWithFormat:@"资源(%ld)(%@)", self.filePaths.count, [RBFileManager folderSizeDescriptionAtPath:self.tempFolderPath]]];
+    
+    @weakify(self);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        @strongify(self);
+        [self.tableView reloadData];
+    });
+}
+- (void)processVideoURL:(NSURL *)fileURL atIndex:(NSInteger)index {
+    NSString *fileNameSuffix = [NSString stringWithFormat:@"%@ %ld", self.tempFolderPath, index];
+    NSString *fileNameAndExt = [NSString stringWithFormat:@"%@%@.mp4", self.tempFolderPath.md5String.md5Middle, fileNameSuffix.md5String.md5Middle];
+    NSString *videoFilePath = [self.tempFolderPath stringByAppendingPathComponent:fileNameAndExt];
+    
+    NSString *originFilePath = [fileURL.absoluteString stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+    [RBFileManager copyItemFromPath:originFilePath toPath:videoFilePath];
+    
+    self.filePaths = [self.filePaths arrayByAddingObject:videoFilePath];
     self.headers = @[@"链接", @"信息", @"文字", [NSString stringWithFormat:@"资源(%ld)(%@)", self.filePaths.count, [RBFileManager folderSizeDescriptionAtPath:self.tempFolderPath]]];
     
     @weakify(self);
