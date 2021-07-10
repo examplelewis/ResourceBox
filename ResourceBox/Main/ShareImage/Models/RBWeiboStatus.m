@@ -169,6 +169,9 @@
     // 5、防止出现 特殊字符
     self.folderName = [self.folderName stringByReplacingOccurrencesOfString:@"🪆" withString:@" "];
     self.folderName = [self.folderName stringByReplacingOccurrencesOfString:@"🪝" withString:@" "];
+    self.folderName = [self.folderName stringByReplacingOccurrencesOfString:@"🪰" withString:@" "];
+    self.folderName = [self.folderName stringByReplacingOccurrencesOfString:@"🧛‍♀️" withString:@" "];
+    self.folderName = [self.folderName stringByReplacingOccurrencesOfString:@"⭐" withString:@" "];
     
     // 6、长度超过100的文件夹无法保存在Synology NAS中，因此截取超过100长度的文件夹名称
     if (self.folderName.length >= 98) {
