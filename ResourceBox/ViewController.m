@@ -159,8 +159,14 @@
             
             UIAlertAction *cancelAA = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
             UIAlertAction *confirmAA = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [RBFileManager removeFilePath:[[RBSettingManager defaultManager] pathOfContentInDocumentFolder:RBShareImagesFolderName]];
-                [SVProgressHUD showSuccessWithStatus:@"已全部完成"];
+                [SVProgressHUD show];
+                dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                    [RBFileManager removeFilePath:[[RBSettingManager defaultManager] pathOfContentInDocumentFolder:RBShareImagesFolderName]];
+                    
+                    dispatch_main_async_safe(^{
+                        [SVProgressHUD showSuccessWithStatus:@"已全部完成"];
+                    });
+                });
             }];
             [ac addAction:cancelAA];
             [ac addAction:confirmAA];
