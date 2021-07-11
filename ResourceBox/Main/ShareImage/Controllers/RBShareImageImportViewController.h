@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *link;
 @property (nonatomic, copy) NSString *inputStatus;
+@property (nonatomic, assign) BOOL usingDatabase;
 
 @end
 

@@ -39,7 +39,7 @@
 - (void)setupUIAndData {
     // Data
     self.listData = @[
-        @[@"导入图片"],
+        @[@"导入图片", @"导入图片(不使用数据库)"],
         @[@"查询已抓取的图片"],
         @[@"清空 文件夹"]
     ];
@@ -56,15 +56,15 @@
 }
 
 #pragma mark - Navigate
-- (void)_navigateToImport {
+- (void)_navigateToImportWithUsingDatabase:(BOOL)usingDatabase {
     NSArray *inputs = [UIPasteboard generalPasteboard].strings;
     if (inputs.count == 2) {
-        [self _navigateToImportDirectlyWithInputs:inputs];
+        [self _navigateToImportDirectlyWithInputs:inputs usingDatabase:usingDatabase];
     } else {
-        [self _navigateToImportIndirectly];
+        [self _navigateToImportIndirectlyWithUsingDatabase:usingDatabase];
     }
 }
-- (void)_navigateToImportDirectlyWithInputs:(NSArray *)inputs {
+- (void)_navigateToImportDirectlyWithInputs:(NSArray *)inputs usingDatabase:(BOOL)usingDatabase {
     NSString *inputStatus = inputs.firstObject;
     NSString *link = inputs.lastObject;
     
@@ -78,9 +78,9 @@
         return;
     }
     
-    if ([[RBSQLiteManager defaultManager] isWeiboStatusExistsWithStatusId:link.lastPathComponent]) {
+    if (usingDatabase && [[RBSQLiteManager defaultManager] isWeiboStatusExistsWithStatusId:link.lastPathComponent]) {
         // 如果剪贴板上的微博内容已经存储，那么弹出手动输入框
-        [self _navigateToImportIndirectly];
+        [self _navigateToImportIndirectlyWithUsingDatabase:usingDatabase];
         // 延迟0.25秒，等UIAlertController显示后再显示SVProgressHUD
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [SVProgressHUD showInfoWithStatus:@"输入的微博已存储"];
@@ -92,10 +92,11 @@
     RBShareImageImportViewController *vc = [[RBShareImageImportViewController alloc] initWithNibName:@"RBShareImageImportViewController" bundle:nil];
     vc.link = link;
     vc.inputStatus = inputStatus;
+    vc.usingDatabase = usingDatabase;
     
     [[RBSettingManager defaultManager].navigationController pushViewController:vc animated:YES];
 }
-- (void)_navigateToImportIndirectly {
+- (void)_navigateToImportIndirectlyWithUsingDatabase:(BOOL)usingDatabase {
     UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"提示" message:@"请输入微博链接" preferredStyle:UIAlertControllerStyleAlert];
     [ac addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"微博链接";
@@ -120,6 +121,7 @@
         
         RBShareImageImportViewController *vc = [[RBShareImageImportViewController alloc] initWithNibName:@"RBShareImageImportViewController" bundle:nil];
         vc.link = inputLink;
+        vc.usingDatabase = usingDatabase;
         
         [[RBSettingManager defaultManager].navigationController pushViewController:vc animated:YES];
     }]];
@@ -153,7 +155,11 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.section == 0) {
-        [self _navigateToImport];
+        if (indexPath.row == 0) {
+            [self _navigateToImportWithUsingDatabase:YES];
+        } else if (indexPath.row == 1) {
+            [self _navigateToImportWithUsingDatabase:NO];
+        }
     } else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             RBShareImageListViewController *vc = [[RBShareImageListViewController alloc] initWithNibName:@"RBShareImageListViewController" bundle:nil];

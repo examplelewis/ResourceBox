@@ -385,7 +385,9 @@
     // 赋值imageUrls
     self.status.imageUrls = self.filePaths;
     // 写入数据库
-    [[RBSQLiteManager defaultManager] insertWeiboStatuses:@[self.status]];
+    if (self.usingDatabase) {
+        [[RBSQLiteManager defaultManager] insertWeiboStatuses:@[self.status]];
+    }
     // Done
     [SVProgressHUD showSuccessWithStatus:@"添加成功"];
     [self.navigationController popViewControllerAnimated:YES];
