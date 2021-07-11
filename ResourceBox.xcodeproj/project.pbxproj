@@ -48,6 +48,7 @@
 		AC6E5F3F25CC351B00D77430 /* NSDictionary+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5F2825CC351B00D77430 /* NSDictionary+YYAdd.m */; };
 		AC6E5F4025CC351B00D77430 /* NSObject+YYAddForKVO.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5F2B25CC351B00D77430 /* NSObject+YYAddForKVO.m */; };
 		AC6E5F4125CC351B00D77430 /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6E5F2F25CC351B00D77430 /* XMLReader.m */; };
+		AC761D49269AE0AA00508AB3 /* GYMultipleTapActionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC761D48269AE0AA00508AB3 /* GYMultipleTapActionManager.m */; };
 		AC89B05F25C9A48500BA2AA4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AC89B05E25C9A48500BA2AA4 /* AppDelegate.m */; };
 		AC89B06225C9A48500BA2AA4 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AC89B06125C9A48500BA2AA4 /* SceneDelegate.m */; };
 		AC89B06525C9A48500BA2AA4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC89B06425C9A48500BA2AA4 /* ViewController.m */; };
@@ -179,6 +180,8 @@
 		AC6E5F3125CC351B00D77430 /* RACEXTScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RACEXTScope.h; sourceTree = "<group>"; };
 		AC6E5F3225CC351B00D77430 /* RACMetaMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RACMetaMacros.h; sourceTree = "<group>"; };
 		AC6E5F8425CC49B600D77430 /* ResourceBox.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ResourceBox.entitlements; sourceTree = "<group>"; };
+		AC761D47269AE0AA00508AB3 /* GYMultipleTapActionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GYMultipleTapActionManager.h; sourceTree = "<group>"; };
+		AC761D48269AE0AA00508AB3 /* GYMultipleTapActionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GYMultipleTapActionManager.m; sourceTree = "<group>"; };
 		AC89B05A25C9A48500BA2AA4 /* ResourceBox.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ResourceBox.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC89B05D25C9A48500BA2AA4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AC89B05E25C9A48500BA2AA4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -316,6 +319,8 @@
 				AC6E5EB925CC32FF00D77430 /* RBLogManager.m */,
 				AC6E5E9D25CC32FF00D77430 /* RBUtilityManager.h */,
 				AC6E5E9725CC32FF00D77430 /* RBUtilityManager.m */,
+				AC761D47269AE0AA00508AB3 /* GYMultipleTapActionManager.h */,
+				AC761D48269AE0AA00508AB3 /* GYMultipleTapActionManager.m */,
 				AC6E5EB625CC32FF00D77430 /* Setting */,
 				AC6E5EBA25CC32FF00D77430 /* SQL */,
 			);
@@ -714,6 +719,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC761D49269AE0AA00508AB3 /* GYMultipleTapActionManager.m in Sources */,
 				AC54F2AF266CC10100F67400 /* RBWeiboStatus.m in Sources */,
 				AC24B05E25D2E006009180B0 /* RBShareImageFilesViewController.m in Sources */,
 				AC6E5EDE25CC32FF00D77430 /* RBSettingManager.m in Sources */,

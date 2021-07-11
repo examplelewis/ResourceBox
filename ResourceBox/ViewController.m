@@ -10,12 +10,15 @@
 #import "RBShareImageListViewController.h"
 #import "RBShareImageImportViewController.h"
 #import "RBSQLiteManager.h"
+#import "GYMultipleTapActionManager.h"
 
-@interface ViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface ViewController () <UITableViewDelegate, UITableViewDataSource, GYMultipleTapActionManagerDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, copy) NSArray<NSArray *> *listData;
 @property (nonatomic, copy) NSArray<NSString *> *headerData;
+
+@property (nonatomic, strong) GYMultipleTapActionManager *cleanTapManager;
 
 @end
 
@@ -45,6 +48,9 @@
         @"图片查看",
         @"图片操作"
     ];
+    
+    self.cleanTapManager = [[GYMultipleTapActionManager alloc] initWithTapAction:[GYMultipleTapAction tapActionWithCount:3 timeInterval:0.5 eventName:@"点击" actionName:@"清空所有文件"]];
+    self.cleanTapManager.delegate = self;
     
     // UI
 }
@@ -155,24 +161,39 @@
         }
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
-            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"是否清理文件夹内所有图片" message:@"此操作不可恢复" preferredStyle:UIAlertControllerStyleAlert];
-            
-            UIAlertAction *cancelAA = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-            UIAlertAction *confirmAA = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [SVProgressHUD show];
-                dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                    [RBFileManager removeFilePath:[[RBSettingManager defaultManager] pathOfContentInDocumentFolder:RBShareImagesFolderName]];
-                    
-                    dispatch_main_async_safe(^{
-                        [SVProgressHUD showSuccessWithStatus:@"已全部完成"];
-                    });
-                });
-            }];
-            [ac addAction:cancelAA];
-            [ac addAction:confirmAA];
-            
-            [[RBSettingManager defaultManager].navigationController.visibleViewController presentViewController:ac animated:YES completion:nil];
+            [self.cleanTapManager triggerTap];
         }
+    }
+}
+
+#pragma mark - Ops
+- (void)showCleanDocumentsFolderAlert {
+    UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"是否清理文件夹内所有图片" message:@"此操作不可恢复" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancelAA = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *confirmAA = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self _cleanDocumentsFolder];
+    }];
+    [ac addAction:cancelAA];
+    [ac addAction:confirmAA];
+    
+    [[RBSettingManager defaultManager].navigationController.visibleViewController presentViewController:ac animated:YES completion:nil];
+}
+- (void)_cleanDocumentsFolder {
+    [SVProgressHUD show];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [RBFileManager removeFilePath:[[RBSettingManager defaultManager] pathOfContentInDocumentFolder:RBShareImagesFolderName]];
+        
+        dispatch_main_async_safe(^{
+            [SVProgressHUD showSuccessWithStatus:@"已全部完成"];
+        });
+    });
+}
+
+#pragma mark - GYMultipleTapActionManagerDelegate
+- (void)tapManager:(GYMultipleTapActionManager *)tapManager didTriggerTapAction:(GYMultipleTapAction *)tapAction {
+    if (tapManager == self.cleanTapManager) {
+        [self showCleanDocumentsFolderAlert];
     }
 }
 
