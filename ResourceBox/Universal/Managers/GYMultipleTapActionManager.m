@@ -64,12 +64,6 @@ static NSTimeInterval const kMaxTimeInterval = 3.0f;
 }
 
 - (void)triggerTap {
-    if (self.tapDates.count == self.tapAction.count - 1) {
-        [self _reset];
-        [self _triggerAction];
-        return;
-    }
-    
     NSDate *currentDate = [NSDate date];
     if (self.tapDates.count == 0) {
         [self.tapDates addObject:currentDate];
@@ -78,7 +72,13 @@ static NSTimeInterval const kMaxTimeInterval = 3.0f;
     
     NSTimeInterval timeInterval = [currentDate timeIntervalSinceDate:self.tapDates.lastObject];
     if (timeInterval <= self.tapAction.timeInterval) {
-        [self.tapDates addObject:currentDate];
+        if (self.tapDates.count == self.tapAction.count - 1) {
+            [self _reset];
+            [self _triggerAction];
+        } else {
+            [self.tapDates addObject:currentDate];
+        }
+        
         return;
     }
     
