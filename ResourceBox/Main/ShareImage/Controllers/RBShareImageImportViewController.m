@@ -47,11 +47,9 @@
 #pragma mark - Configure
 - (void)setupNavigationBar {
     UIBarButtonItem *doneBBI = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(doneBarButtonItemPressed:)];
-    UIBarButtonItem *imageBBI = [[UIBarButtonItem alloc] initWithTitle:@"图片" style:UIBarButtonItemStylePlain target:self action:@selector(imageBarButtonItemPressed:)];
-    UIBarButtonItem *videoBBI = [[UIBarButtonItem alloc] initWithTitle:@"视频" style:UIBarButtonItemStylePlain target:self action:@selector(videoBarButtonItemPressed:)];
-    UIBarButtonItem *livePhotoBBI = [[UIBarButtonItem alloc] initWithTitle:@"Live" style:UIBarButtonItemStylePlain target:self action:@selector(livePhotoBarButtonItemPressed:)];
+    UIBarButtonItem *addBBI = [[UIBarButtonItem alloc] initWithTitle:@"添加" style:UIBarButtonItemStylePlain target:self action:@selector(addBarButtonItemPressed:)];
     
-    self.navigationItem.rightBarButtonItems = @[doneBBI, imageBBI, videoBBI, livePhotoBBI];
+    self.navigationItem.rightBarButtonItems = @[doneBBI, addBBI];
 }
 - (void)setupUIAndData {
     // Data
@@ -188,62 +186,40 @@
 
 #pragma mark - PHPickerViewControllerDelegate
 - (void)picker:(PHPickerViewController *)picker didFinishPicking:(NSArray<PHPickerResult *> *)results {
-    BOOL isImage = [picker.configuration.filter isEqual:[PHPickerFilter imagesFilter]];
-    BOOL isVideo = [picker.configuration.filter isEqual:[PHPickerFilter videosFilter]];
-    BOOL isLivePhoto = [picker.configuration.filter isEqual:[PHPickerFilter livePhotosFilter]];
-    
-    NSInteger filePathsCount = self.filePaths.count; // 如果多次加图片，那么图片名称可能重复，因为把Index带进去生成名字的，所以Index需要不重复
-    
     [picker dismissViewControllerAnimated:YES completion:nil];
     
-    if (isImage) {
-        for (NSInteger i = 0; i < results.count; i++) {
-            @weakify(self);
-            PHPickerResult *result = results[i];
-            [result.itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypeImage options:nil completionHandler:^(NSData *data, NSError *error) {
-                // 尽量遵循原图片尺寸、格式
-                if (data) {
-                    @strongify(self);
-                    [self processImageData:data atIndex:i];
-                } else if (error.code == -1000 || error.code == -1200) {
-                    [result.itemProvider loadObjectOfClass:[UIImage class] completionHandler:^(__kindof id<NSItemProviderReading>  _Nullable object, NSError * _Nullable error) {
-                        if ([object isKindOfClass:[UIImage class]]) {
-                            @strongify(self);
-                            [self processImageData:UIImageJPEGRepresentation((UIImage *)object, 0.95f) atIndex:filePathsCount + i];
-                        }
-                    }];
-                    
-//                    // -1200 的错误出现意味着，转换成Data失败，需要直接显示成Image
-//                    [result.itemProvider loadItemForTypeIdentifier:(NSString *)kUTTypeImage options:nil completionHandler:^(UIImage *image, NSError *error) {}];
-                } else {
-                    [SVProgressHUD showInfoWithStatus:@"图片读取失败，请重试一次。若依然失败，请分批添加"];
-                }
-            }];
-        }
-    }
+    // 如果多次加图片，那么图片名称可能重复，因为把Index带进去生成名字的，所以Index需要不重复
+    NSInteger filePathsCount = self.filePaths.count;
     
-    if (isVideo) {
-        for (NSInteger i = 0; i < results.count; i++) {
-            @weakify(self);
-            PHPickerResult *result = results[i];
-            if ([result.itemProvider hasItemConformingToTypeIdentifier:@"public.mpeg-4"]) {
-                [result.itemProvider loadFileRepresentationForTypeIdentifier:@"public.mpeg-4" completionHandler:^(NSURL * _Nullable url, NSError * _Nullable error) {
-                    @strongify(self);
-                    [self processVideoURL:url atIndex:filePathsCount + i];
+    @weakify(self);
+    for (NSInteger i = 0; i < results.count; i++) {
+        // 图片
+        if ([results[i].itemProvider hasItemConformingToTypeIdentifier:(NSString *)kUTTypeImage]) {
+            if ([results[i].itemProvider hasItemConformingToTypeIdentifier:@"com.apple.live-photo-bundle"]) {
+                // Live Photo
+                [results[i].itemProvider loadObjectOfClass:[PHLivePhoto class] completionHandler:^(__kindof id<NSItemProviderReading>  _Nullable object, NSError * _Nullable error) {
+                    if ([object isKindOfClass:[PHLivePhoto class]]) {
+                        @strongify(self);
+                        [self processLivePhoto:(PHLivePhoto *)object atIndex:filePathsCount + i];
+                    }
+                }];
+            } else {
+                // 其他类型图片
+                [results[i].itemProvider loadDataRepresentationForTypeIdentifier:(NSString *)kUTTypeImage completionHandler:^(NSData * _Nullable data, NSError * _Nullable error) {
+                    if (data) {
+                        @strongify(self);
+                        [self processImageData:data atIndex:i];
+                    } else {
+                        [SVProgressHUD showInfoWithStatus:[NSString stringWithFormat:@"图片读取失败，请重试一次。若依然失败，请分批添加\nerror.code = %ld", error.code]];
+                    }
                 }];
             }
         }
-    }
-    
-    if (isLivePhoto) {
-        for (NSInteger i = 0; i < results.count; i++) {
-            @weakify(self);
-            PHPickerResult *result = results[i];
-            [result.itemProvider loadObjectOfClass:[PHLivePhoto class] completionHandler:^(__kindof id<NSItemProviderReading>  _Nullable object, NSError * _Nullable error) {
-                if ([object isKindOfClass:[PHLivePhoto class]]) {
-                    @strongify(self);
-                    [self processLivePhoto:(PHLivePhoto *)object atIndex:filePathsCount + i];
-                }
+        // 视频
+        if ([results[i].itemProvider hasItemConformingToTypeIdentifier:@"public.mpeg-4"]) {
+            [results[i].itemProvider loadFileRepresentationForTypeIdentifier:@"public.mpeg-4" completionHandler:^(NSURL * _Nullable url, NSError * _Nullable error) {
+                @strongify(self);
+                [self processVideoURL:url atIndex:filePathsCount + i];
             }];
         }
     }
@@ -335,29 +311,10 @@
 }
 
 #pragma mark - Actions
-- (void)imageBarButtonItemPressed:(UIBarButtonItem *)sender {
+- (void)addBarButtonItemPressed:(UIBarButtonItem *)sender {
     PHPickerConfiguration *config = [[PHPickerConfiguration alloc] init];
     config.selectionLimit = 18;
-    config.filter = [PHPickerFilter imagesFilter];
-
-    PHPickerViewController *pickerViewController = [[PHPickerViewController alloc] initWithConfiguration:config];
-    pickerViewController.delegate = self;
-    [self presentViewController:pickerViewController animated:YES completion:nil];
-}
-- (void)videoBarButtonItemPressed:(UIBarButtonItem *)sender {
-    PHPickerConfiguration *config = [[PHPickerConfiguration alloc] init];
-    config.selectionLimit = 18;
-    config.filter = [PHPickerFilter videosFilter];
-
-    PHPickerViewController *pickerViewController = [[PHPickerViewController alloc] initWithConfiguration:config];
-    pickerViewController.delegate = self;
-    [self presentViewController:pickerViewController animated:YES completion:nil];
-}
-- (void)livePhotoBarButtonItemPressed:(UIBarButtonItem *)sender {
-    PHPickerConfiguration *config = [[PHPickerConfiguration alloc] init];
-    config.selectionLimit = 18;
-    config.filter = [PHPickerFilter livePhotosFilter];
-
+    
     PHPickerViewController *pickerViewController = [[PHPickerViewController alloc] initWithConfiguration:config];
     pickerViewController.delegate = self;
     [self presentViewController:pickerViewController animated:YES completion:nil];
