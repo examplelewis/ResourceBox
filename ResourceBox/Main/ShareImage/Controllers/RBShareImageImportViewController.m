@@ -188,16 +188,19 @@
 - (void)picker:(PHPickerViewController *)picker didFinishPicking:(NSArray<PHPickerResult *> *)results {
     [picker dismissViewControllerAnimated:YES completion:nil];
     
+    // 图片顺序是反的，所以需要逆序取一遍
+    NSArray<PHPickerResult *> *resultsCopy = [results reverseObjectEnumerator].allObjects;
+    
     // 如果多次加图片，那么图片名称可能重复，因为把Index带进去生成名字的，所以Index需要不重复
     NSInteger filePathsCount = self.filePaths.count;
     
     @weakify(self);
-    for (NSInteger i = 0; i < results.count; i++) {
+    for (NSInteger i = 0; i < resultsCopy.count; i++) {
         // 图片
-        if ([results[i].itemProvider hasItemConformingToTypeIdentifier:(NSString *)kUTTypeImage]) {
-            if ([results[i].itemProvider hasItemConformingToTypeIdentifier:@"com.apple.live-photo-bundle"]) {
+        if ([resultsCopy[i].itemProvider hasItemConformingToTypeIdentifier:(NSString *)kUTTypeImage]) {
+            if ([resultsCopy[i].itemProvider hasItemConformingToTypeIdentifier:@"com.apple.live-photo-bundle"]) {
                 // Live Photo
-                [results[i].itemProvider loadObjectOfClass:[PHLivePhoto class] completionHandler:^(__kindof id<NSItemProviderReading>  _Nullable object, NSError * _Nullable error) {
+                [resultsCopy[i].itemProvider loadObjectOfClass:[PHLivePhoto class] completionHandler:^(__kindof id<NSItemProviderReading>  _Nullable object, NSError * _Nullable error) {
                     if ([object isKindOfClass:[PHLivePhoto class]]) {
                         @strongify(self);
                         [self processLivePhoto:(PHLivePhoto *)object atIndex:filePathsCount + i];
@@ -205,7 +208,7 @@
                 }];
             } else {
                 // 其他类型图片
-                [results[i].itemProvider loadDataRepresentationForTypeIdentifier:(NSString *)kUTTypeImage completionHandler:^(NSData * _Nullable data, NSError * _Nullable error) {
+                [resultsCopy[i].itemProvider loadDataRepresentationForTypeIdentifier:(NSString *)kUTTypeImage completionHandler:^(NSData * _Nullable data, NSError * _Nullable error) {
                     if (data) {
                         @strongify(self);
                         [self processImageData:data atIndex:i];
@@ -216,8 +219,8 @@
             }
         }
         // 视频
-        if ([results[i].itemProvider hasItemConformingToTypeIdentifier:@"public.mpeg-4"]) {
-            [results[i].itemProvider loadFileRepresentationForTypeIdentifier:@"public.mpeg-4" completionHandler:^(NSURL * _Nullable url, NSError * _Nullable error) {
+        if ([resultsCopy[i].itemProvider hasItemConformingToTypeIdentifier:@"public.mpeg-4"]) {
+            [resultsCopy[i].itemProvider loadFileRepresentationForTypeIdentifier:@"public.mpeg-4" completionHandler:^(NSURL * _Nullable url, NSError * _Nullable error) {
                 @strongify(self);
                 [self processVideoURL:url atIndex:filePathsCount + i];
             }];
@@ -261,9 +264,16 @@
     });
 }
 - (void)processLivePhoto:(PHLivePhoto *)livePhoto atIndex:(NSInteger)index {
-    // 只存视频
     NSArray<PHAssetResource *> *assetResources = [PHAssetResource assetResourcesForLivePhoto:livePhoto];
+    NSArray<PHAssetResource *> *photoResources = [assetResources filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K = %@", @"type", @(PHAssetResourceTypePhoto)]];
     NSArray<PHAssetResource *> *videoResources = [assetResources filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"%K = %@", @"type", @(PHAssetResourceTypePairedVideo)]];
+    if (photoResources.count > 0) {
+        NSString *fileNameSuffix = [NSString stringWithFormat:@"%@ %ld", self.tempFolderPath, index];
+        NSString *fileNameAndExt = [NSString stringWithFormat:@"%@%@.png", self.tempFolderPath.md5String.md5Middle, fileNameSuffix.md5String.md5Middle];
+        NSString *filePath = [self.tempFolderPath stringByAppendingPathComponent:fileNameAndExt];
+        [self _saveAssetResource:photoResources.firstObject toFilePath:filePath];
+    }
+    
     if (videoResources.count > 0) {
         NSString *fileNameSuffix = [NSString stringWithFormat:@"%@ %ld", self.tempFolderPath, index];
         NSString *fileNameAndExt = [NSString stringWithFormat:@"%@%@.mov", self.tempFolderPath.md5String.md5Middle, fileNameSuffix.md5String.md5Middle];
