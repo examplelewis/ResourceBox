@@ -34,6 +34,8 @@
         _databasesFolderPath = [_documentPath stringByAppendingPathComponent:@"~Databases"];
         _preferenceFilePath = [self pathOfContentInDocumentFolder:@"RBPreference.plist"];
         
+        [RBFileManager createFolderAtPath:self.databasesFolderPath];
+        
         [self updatePreferences];
     }
     
