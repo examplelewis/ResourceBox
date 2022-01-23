@@ -67,7 +67,7 @@
     }
 }
 - (void)_navigateToImportDirectlyWithStatus:(NSString *)status link:(NSString *)link usingDatabase:(BOOL)usingDatabase {
-    NSLog(@"\nstatus: %@\nlink: %@", status, link);
+//    NSLog(@"\nstatus: %@\nlink: %@", status, link);
     
     if (![link.lowercaseString hasPrefix:@"https://m.weibo.cn/"] && ![link.lowercaseString hasPrefix:@"http://m.weibo.cn/"]) {
         [SVProgressHUD showInfoWithStatus:@"输入的不是微博链接"];
