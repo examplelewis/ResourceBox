@@ -57,16 +57,17 @@
 
 #pragma mark - Navigate
 - (void)_navigateToImportWithUsingDatabase:(BOOL)usingDatabase {
-    NSArray *inputs = [UIPasteboard generalPasteboard].strings;
-    if (inputs.count == 2) {
-        [self _navigateToImportDirectlyWithInputs:inputs usingDatabase:usingDatabase];
+    if (UIPasteboard.generalPasteboard.URLs.count > 0) {
+        NSString *status = UIPasteboard.generalPasteboard.string;
+        NSString *link = UIPasteboard.generalPasteboard.URLs.firstObject.absoluteString;
+        
+        [self _navigateToImportDirectlyWithStatus:status link:link usingDatabase:usingDatabase];
     } else {
         [self _navigateToImportIndirectlyWithUsingDatabase:usingDatabase];
     }
 }
-- (void)_navigateToImportDirectlyWithInputs:(NSArray *)inputs usingDatabase:(BOOL)usingDatabase {
-    NSString *inputStatus = inputs.firstObject;
-    NSString *link = inputs.lastObject;
+- (void)_navigateToImportDirectlyWithStatus:(NSString *)status link:(NSString *)link usingDatabase:(BOOL)usingDatabase {
+    NSLog(@"\nstatus: %@\nlink: %@", status, link);
     
     if (![link.lowercaseString hasPrefix:@"https://m.weibo.cn/"] && ![link.lowercaseString hasPrefix:@"http://m.weibo.cn/"]) {
         [SVProgressHUD showInfoWithStatus:@"输入的不是微博链接"];
@@ -88,10 +89,10 @@
         
         return;
     }
-
+    
     RBShareImageImportViewController *vc = [[RBShareImageImportViewController alloc] initWithNibName:@"RBShareImageImportViewController" bundle:nil];
     vc.link = link;
-    vc.inputStatus = inputStatus;
+    vc.inputStatus = status;
     vc.usingDatabase = usingDatabase;
     
     [[RBSettingManager defaultManager].navigationController pushViewController:vc animated:YES];
